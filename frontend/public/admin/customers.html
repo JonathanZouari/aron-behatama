@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>לקוחות — ארון בהתאמה</title>
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&family=Noto+Sans+Hebrew:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/admin.css">
+  <script src="/config.js"></script>
+</head>
+<body>
+  <div class="admin-layout">
+    <nav class="rail" id="rail" aria-label="ניווט ניהול"></nav>
+    <main class="admin-main">
+      <div class="page-title"><h1>לקוחות</h1></div>
+      <div id="page-alert" hidden></div>
+
+      <div class="master-detail">
+        <section class="card" style="padding:0.75rem">
+          <input type="search" id="q" placeholder="חיפוש לפי שם או טלפון" aria-label="חיפוש לקוחות" style="margin-bottom:0.5rem">
+          <div id="list"></div>
+          <div id="empty" class="empty" hidden><h3>לא נמצאו לקוחות</h3><p class="small">לקוחות נוצרים מקישור מפורש של פנייה.</p></div>
+        </section>
+
+        <div class="stack">
+          <section class="card" id="detail">
+            <p class="muted">בחרו לקוח מהרשימה כדי לראות את פרטיו והיסטוריית הפניות.</p>
+          </section>
+          <section class="card">
+            <h2>פניות ללא לקוח משויך</h2>
+            <p class="muted small">המערכת אינה ממזגת לקוחות אוטומטית לפי שם או טלפון. הקישור נעשה במפורש על ידי הנגר.</p>
+            <div class="table-wrap"><table><thead><tr><th>מספר</th><th>שם</th><th>טלפון</th><th>סטטוס</th><th></th></tr></thead><tbody id="unlinked"></tbody></table></div>
+            <div id="unlinked-empty" class="empty" hidden><p>כל הפניות שנשלחו משויכות ללקוחות.</p></div>
+          </section>
+        </div>
+      </div>
+
+      <dialog id="link-dialog" class="card" style="max-width:480px;width:100%">
+        <h2>קישור פנייה <span id="dlg-number"></span> ללקוח</h2>
+        <div class="stack">
+          <button class="btn btn-secondary" type="button" id="dlg-create">יצירת לקוח חדש מפרטי הקשר של הפנייה</button>
+          <hr>
+          <div class="field"><label for="dlg-search">או בחירת לקוח קיים</label><input type="search" id="dlg-search" placeholder="שם או טלפון"></div>
+          <div id="dlg-results" style="max-height:220px;overflow:auto"></div>
+          <div class="row"><button class="btn btn-ghost" type="button" id="dlg-close">ביטול</button></div>
+        </div>
+      </dialog>
+    </main>
+  </div>
+  <script type="module" src="/js/admin/customers.js"></script>
+</body>
+</html>

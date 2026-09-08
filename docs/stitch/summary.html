@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+
+<html dir="rtl" lang="he"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>סיכום מפרט ושליחה לנגר | ארון בהתאמה</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700&amp;family=Noto+Sans+Hebrew:wght@300;400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              background: '#F7F3EC',
+              surface: '#FFFFFF',
+              'surface-variant': '#E6DDD0',
+              primary: '#1F5A3C',
+              'primary-hover': '#174630',
+              'on-primary': '#FFFFFF',
+              oak: '#A9743F',
+              'light-oak': '#D9B48F',
+              walnut: '#6B4A2B',
+              success: '#2E7D4F',
+              warning: '#B7791F',
+              error: '#B3261E',
+              info: '#2F5F8F'
+            },
+            borderRadius: {
+              DEFAULT: "0.25rem",
+              lg: "0.5rem",
+              xl: "0.75rem",
+              full: "9999px"
+            },
+            fontFamily: {
+              headline: ["Rubik", "sans-serif"],
+              display: ["Rubik", "sans-serif"],
+              body: ["Noto Sans Hebrew", "sans-serif"],
+              label: ["Rubik", "sans-serif"]
+            },
+            boxShadow: {
+              'card': '0 4px 6px -1px rgba(107, 74, 43, 0.1), 0 2px 4px -1px rgba(107, 74, 43, 0.06)',
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Noto Sans Hebrew', sans-serif; background-color: #F7F3EC; color: #2d3748; line-height: 1.6; }
+        h1, h2, h3, h4, h5, h6, .font-headline { font-family: 'Rubik', sans-serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+    </style>
+</head>
+<body class="bg-background min-h-screen flex flex-col">
+<!-- TopNavBar -->
+<nav class="bg-[#FFFFFF] dark:bg-surface border-b border-[#E6DDD0] shadow-sm w-full top-0 sticky z-50 transition-all duration-300 ease-in-out">
+<div class="flex flex-row-reverse justify-between items-center px-8 h-16 w-full max-w-7xl mx-auto">
+<div class="flex items-center gap-6">
+<!-- Links -->
+<a class="text-[#6B4A2B] hover:text-[#1F5A3C] transition-colors font-headline text-lg leading-relaxed text-right" href="#">דף הבית</a>
+<a class="text-[#6B4A2B] hover:text-[#1F5A3C] transition-colors font-headline text-lg leading-relaxed text-right" href="#">עיצוב ארון</a>
+<a class="text-[#1F5A3C] font-bold border-b-2 border-[#1F5A3C] pb-1 font-headline text-lg leading-relaxed text-right" href="#">הזמנות שלי</a>
+<a class="text-[#6B4A2B] hover:text-[#1F5A3C] transition-colors font-headline text-lg leading-relaxed text-right" href="#">צור קשר</a>
+</div>
+<!-- Brand -->
+<div class="flex items-center gap-3">
+<span class="text-2xl font-headline font-bold text-[#1F5A3C]">ארון בהתאמה</span>
+<img alt="Logo" class="h-10 w-10 object-contain rounded-md" src="https://lh3.googleusercontent.com/aida/AEtjO1VxNxRBbLvZdqlnYI5iSukl96S-6dTSNtYlVW_vGCdsJFhEKlsDhowfyOgeVm2yZmPe8vnBe1RjveYMvoYGwykLnZP0p3hTOFtWwmlIoWWd4gsoL1GHUyxMi37f1wN2vnAXC0g2hw59hmyk7gQM5bayknK3lz4SKwvkrWnYSx-E_2n7wo4ICyXqmIg-LUbIjVoG9tIAsS9fcSrOek4X_dGTOmya-tKYH_2nuyFRwKOtXEY0FJ3lJT8LL9mc"/>
+</div>
+<!-- Actions -->
+<div class="flex items-center gap-4 flex-row-reverse">
+<button class="text-[#1F5A3C] font-headline font-medium hover:bg-[#F7F3EC] px-4 py-2 rounded transition-colors">התחברות</button>
+<button class="text-[#6B4A2B] hover:text-[#1F5A3C] transition-colors p-2 rounded-full hover:bg-[#F7F3EC]">
+<span class="material-symbols-outlined">shopping_cart</span>
+</button>
+<button class="text-[#6B4A2B] hover:text-[#1F5A3C] transition-colors p-2 rounded-full hover:bg-[#F7F3EC]">
+<span class="material-symbols-outlined">account_circle</span>
+</button>
+</div>
+</div>
+</nav>
+<!-- Main Content -->
+<main class="flex-grow w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+<header class="mb-8">
+<h1 class="text-3xl md:text-4xl font-headline font-bold text-walnut mb-2">סיכום מפרט ושליחה לנגר</h1>
+<p class="text-lg text-walnut/80">אנא עברו על פרטי הארון ומלאו את פרטי ההתקשרות לקבלת הצעת מחיר.</p>
+</header>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+<!-- Right Column: Spec Summary Card -->
+<div class="lg:col-span-7 space-y-6">
+<div class="bg-surface rounded-xl shadow-card border border-surface-variant overflow-hidden">
+<div class="bg-background px-6 py-4 border-b border-surface-variant flex justify-between items-center">
+<h2 class="font-headline font-bold text-xl text-walnut flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">inventory_2</span>
+                            מפרט הארון שלך
+                        </h2>
+</div>
+<!-- Warning Chip -->
+<div class="mx-6 mt-4 p-3 bg-amber-50 border border-warning/30 rounded-lg flex items-start gap-3">
+<span class="material-symbols-outlined text-warning mt-0.5">warning</span>
+<div>
+<p class="font-headline font-medium text-warning text-sm">שדות חסרים: עומק — הפנייה תועבר לבדיקה ידנית</p>
+<p class="text-xs text-walnut/70 mt-1">הנגר ייצור קשר להשלמת הפרטים החסרים לפני מתן הצעת מחיר סופית.</p>
+</div>
+</div>
+<div class="p-6 space-y-8">
+<!-- Section: Dimensions -->
+<section>
+<div class="flex justify-between items-center mb-3">
+<h3 class="font-headline font-semibold text-lg text-walnut border-b-2 border-primary/20 pb-1 inline-block">מידות</h3>
+<button class="text-sm font-medium text-primary hover:text-primary-hover flex items-center gap-1 transition-colors">
+<span class="material-symbols-outlined text-sm">edit</span> עריכה
+                                </button>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+<div>
+<span class="block text-sm text-walnut/70 mb-1">רוחב</span>
+<span class="font-medium text-walnut">240 ס״מ</span>
+</div>
+<div>
+<span class="block text-sm text-walnut/70 mb-1">גובה</span>
+<span class="font-medium text-walnut">260 ס״מ</span>
+</div>
+<div>
+<span class="block text-sm text-walnut/70 mb-1">עומק</span>
+<span class="font-medium text-error border border-error/30 bg-error/5 px-2 py-0.5 rounded text-sm inline-block">חסר</span>
+</div>
+</div>
+</section>
+<!-- Section: Materials -->
+<section>
+<div class="flex justify-between items-center mb-3">
+<h3 class="font-headline font-semibold text-lg text-walnut border-b-2 border-primary/20 pb-1 inline-block">חומרים וגימור</h3>
+<button class="text-sm font-medium text-primary hover:text-primary-hover flex items-center gap-1 transition-colors">
+<span class="material-symbols-outlined text-sm">edit</span> עריכה
+                                </button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+<div>
+<span class="block text-sm text-walnut/70 mb-1">גוף</span>
+<span class="font-medium text-walnut">סנדוויץ׳ 17 מ״מ</span>
+</div>
+<div>
+<span class="block text-sm text-walnut/70 mb-1">חזיתות</span>
+<span class="font-medium text-walnut">MDF מצופה</span>
+</div>
+<div>
+<span class="block text-sm text-walnut/70 mb-1">גימור</span>
+<span class="font-medium text-walnut flex items-center gap-2">
+<span class="w-4 h-4 rounded-full bg-light-oak inline-block border border-walnut/20"></span>
+                                        אלון בהיר
+                                    </span>
+</div>
+</div>
+</section>
+<!-- Section: Layout -->
+<section>
+<div class="flex justify-between items-center mb-3">
+<h3 class="font-headline font-semibold text-lg text-walnut border-b-2 border-primary/20 pb-1 inline-block">חלוקה פנימית</h3>
+<button class="text-sm font-medium text-primary hover:text-primary-hover flex items-center gap-1 transition-colors">
+<span class="material-symbols-outlined text-sm">edit</span> עריכה
+                                </button>
+</div>
+<div class="flex flex-wrap gap-3">
+<span class="bg-background border border-surface-variant px-3 py-1.5 rounded-lg text-sm text-walnut font-medium flex items-center gap-2">
+<span class="material-symbols-outlined text-primary/70 text-base">door_front</span> 4 דלתות
+                                </span>
+<span class="bg-background border border-surface-variant px-3 py-1.5 rounded-lg text-sm text-walnut font-medium flex items-center gap-2">
+<span class="material-symbols-outlined text-primary/70 text-base">layers</span> 6 מדפים
+                                </span>
+<span class="bg-background border border-surface-variant px-3 py-1.5 rounded-lg text-sm text-walnut font-medium flex items-center gap-2">
+<span class="material-symbols-outlined text-primary/70 text-base">inventory_2</span> 2 מגירות פנימיות
+                                </span>
+<span class="bg-background border border-surface-variant px-3 py-1.5 rounded-lg text-sm text-walnut font-medium flex items-center gap-2">
+<span class="material-symbols-outlined text-primary/70 text-base">grid_view</span> 3 תאים
+                                </span>
+</div>
+</section>
+<!-- Section: Services -->
+<section>
+<div class="flex justify-between items-center mb-3">
+<h3 class="font-headline font-semibold text-lg text-walnut border-b-2 border-primary/20 pb-1 inline-block">שירותים נוספים</h3>
+<button class="text-sm font-medium text-primary hover:text-primary-hover flex items-center gap-1 transition-colors">
+<span class="material-symbols-outlined text-sm">edit</span> עריכה
+                                </button>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-success text-lg">check_circle</span>
+<span class="text-sm text-walnut">טריקה שקטה</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-success text-lg">check_circle</span>
+<span class="text-sm text-walnut">הובלה</span>
+</div>
+<div class="flex items-center gap-2 text-walnut/50">
+<span class="material-symbols-outlined text-lg">cancel</span>
+<span class="text-sm line-through">התקנה</span>
+</div>
+</div>
+</section>
+</div>
+</div>
+</div>
+<!-- Left Column: Contact Form Card -->
+<div class="lg:col-span-5 space-y-6 lg:sticky lg:top-24">
+<div class="bg-surface rounded-xl shadow-card border border-surface-variant p-6 md:p-8">
+<h2 class="font-headline font-bold text-2xl text-walnut mb-6">פרטי התקשרות</h2>
+<form class="space-y-5">
+<div>
+<label class="block text-sm font-headline font-medium text-walnut mb-1" for="fullName">שם מלא *</label>
+<input class="w-full h-[44px] rounded-lg border-surface-variant bg-surface focus:border-primary focus:ring-2 focus:ring-primary/20 text-walnut transition-shadow" id="fullName" name="fullName" required="" type="text"/>
+</div>
+<div>
+<label class="block text-sm font-headline font-medium text-walnut mb-1" for="phone">טלפון *</label>
+<input aria-invalid="true" class="w-full h-[44px] rounded-lg border-error bg-error/5 focus:border-error focus:ring-2 focus:ring-error/20 text-walnut transition-shadow" id="phone" name="phone" required="" type="tel" value="054-1234"/>
+<p class="mt-1.5 text-sm text-error flex items-center gap-1 font-medium">
+<span class="material-symbols-outlined text-sm">error</span>
+                                נא להזין מספר טלפון תקין
+                            </p>
+</div>
+<div>
+<label class="block text-sm font-headline font-medium text-walnut mb-1" for="email">דוא״ל (אופציונלי)</label>
+<input class="w-full h-[44px] rounded-lg border-surface-variant bg-surface focus:border-primary focus:ring-2 focus:ring-primary/20 text-walnut transition-shadow" id="email" name="email" type="email"/>
+</div>
+<div>
+<label class="block text-sm font-headline font-medium text-walnut mb-1" for="city">עיר *</label>
+<input class="w-full h-[44px] rounded-lg border-surface-variant bg-surface focus:border-primary focus:ring-2 focus:ring-primary/20 text-walnut transition-shadow" id="city" name="city" required="" type="text"/>
+</div>
+<div class="bg-background p-4 rounded-lg border border-surface-variant mt-6">
+<p class="text-xs text-walnut/80 mb-3 flex items-start gap-2">
+<span class="material-symbols-outlined text-info text-base shrink-0">info</span>
+                                הפרטים משמשים את הנגרייה לצורך הכנת ההצעה בלבד. לא ייעשה שימוש אחר במידע זה ללא אישורך.
+                            </p>
+<label class="flex items-start gap-3 cursor-pointer group">
+<input class="mt-1 rounded border-surface-variant text-primary focus:ring-primary/30 w-4 h-4 cursor-pointer" required="" type="checkbox"/>
+<span class="text-sm font-medium text-walnut group-hover:text-primary-hover transition-colors">אני מאשר/ת שהמפרט נכון ומבקש/ת הצעת מחיר</span>
+</label>
+</div>
+<div class="pt-4 space-y-3">
+<button class="w-full h-[56px] bg-primary hover:bg-primary-hover text-white font-headline font-bold text-lg rounded-lg shadow-md transition-all duration-200 flex justify-center items-center gap-2" type="submit">
+                                אישור המפרט ושליחה לנגר
+                                <span class="material-symbols-outlined">send</span>
+</button>
+<!-- Loading State Reference (Hidden by default, shown for reference) -->
+<button class="w-full h-[56px] bg-primary/70 text-white font-headline font-bold text-lg rounded-lg cursor-not-allowed flex justify-center items-center gap-2" disabled="" type="button">
+                                שולח בקשה...
+                                <span class="material-symbols-outlined animate-spin">progress_activity</span>
+</button>
+</div>
+</form>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-[#1F5A3C] dark:bg-surface-container w-full mt-auto border-t border-[#A9743F]">
+<div class="flex flex-col md:flex-row-reverse justify-between items-center px-8 py-12 w-full max-w-7xl mx-auto">
+<div class="mb-6 md:mb-0">
+<span class="font-headline font-bold text-white text-xl">ארון בהתאמה</span>
+</div>
+<div class="flex flex-wrap justify-center gap-6 mb-6 md:mb-0">
+<a class="text-white/80 hover:text-white hover:underline opacity-90 hover:opacity-100 transition-opacity font-body text-sm text-right" href="#">תנאי שימוש</a>
+<a class="text-white/80 hover:text-white hover:underline opacity-90 hover:opacity-100 transition-opacity font-body text-sm text-right" href="#">מדיניות פרטיות</a>
+<a class="text-white/80 hover:text-white hover:underline opacity-90 hover:opacity-100 transition-opacity font-body text-sm text-right" href="#">צרו קשר</a>
+<a class="text-white/80 hover:text-white hover:underline opacity-90 hover:opacity-100 transition-opacity font-body text-sm text-right" href="#">שאלות נפוצות</a>
+</div>
+<div>
+<p class="font-body text-sm text-right text-white/70">© 2024 ארון בהתאמה - כל הזכויות שמורות</p>
+</div>
+</div>
+</footer>
+</body></html>

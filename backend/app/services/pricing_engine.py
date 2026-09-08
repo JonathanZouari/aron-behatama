@@ -179,7 +179,7 @@ def price_spec(
     if spec.delivery:
         zone_item = pricebook.find(delivery_zone_code) if delivery_zone_code else None
         if zone_item and zone_item.category == "delivery":
-            lines.append(_line(zone_item, Decimal(1), f"הובלה — {zone_item.name_he}"))
+            lines.append(_line(zone_item, Decimal(1), zone_item.name_he))
         else:
             manual.append("הובלה: לא נמצא מחיר לאזור — נדרש תמחור ידני")
 

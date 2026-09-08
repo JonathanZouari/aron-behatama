@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+
+<html dir="rtl" lang="he"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ארון בהתאמה - תכנון מפרט</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;900&amp;family=Public+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {},
+            "borderRadius": {
+              "DEFAULT": "0.25rem",
+              "lg": "0.5rem",
+              "xl": "0.75rem",
+              "full": "9999px"
+            },
+            "spacing": {},
+            "fontFamily": {
+              "headline": [
+                "Rubik"
+              ],
+              "display": [
+                "Rubik"
+              ],
+              "body": [
+                "Public Sans"
+              ],
+              "label": [
+                "Rubik"
+              ]
+            },
+            "fontSize": {}
+          },
+        },
+      }
+    </script>
+<style>
+        /* Typing animation */
+        .typing-dot {
+            animation: typing 1.4s infinite ease-in-out both;
+        }
+        .typing-dot:nth-child(1) { animation-delay: -0.32s; }
+        .typing-dot:nth-child(2) { animation-delay: -0.16s; }
+        
+        @keyframes typing {
+            0%, 80%, 100% { transform: scale(0); opacity: 0; }
+            40% { transform: scale(1); opacity: 1; }
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #E6DDD0;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #6B4A2B;
+        }
+        
+        /* Mobile View Toggle */
+        .view-chat #chat-col { display: flex; }
+        .view-chat #spec-col { display: none; }
+        .view-spec #chat-col { display: none; }
+        .view-spec #spec-col { display: flex; }
+        
+        @media (min-width: 1024px) {
+            .view-chat #chat-col, .view-spec #chat-col { display: flex; }
+            .view-chat #spec-col, .view-spec #spec-col { display: flex; }
+            #mobile-toggle { display: none; }
+        }
+    </style>
+</head>
+<body class="bg-[#F7F3EC] text-[#202124] font-body min-h-screen flex view-chat overflow-hidden">
+<!-- Mobile Segmented Control -->
+<div class="fixed top-0 left-0 w-full bg-white z-50 px-4 py-2 border-b border-[#E6DDD0] flex justify-center lg:hidden" id="mobile-toggle">
+<div class="flex bg-[#F7F3EC] rounded-lg p-1 w-full max-w-sm">
+<button class="flex-1 py-2 text-center rounded-md font-label font-medium transition-all duration-200" id="btn-chat" onclick="document.body.className='bg-[#F7F3EC] text-[#202124] font-body min-h-screen flex view-chat overflow-hidden'">
+                שיחה
+            </button>
+<button class="flex-1 py-2 text-center rounded-md font-label font-medium transition-all duration-200 text-[#6B4A2B]" id="btn-spec" onclick="document.body.className='bg-[#F7F3EC] text-[#202124] font-body min-h-screen flex view-spec overflow-hidden'">
+                מפרט
+            </button>
+</div>
+</div>
+<script>
+        // Simple logic for the mobile toggle styling (hacky for prototype)
+        const observer = new MutationObserver((mutations) => {
+            mutations.forEach((mutation) => {
+                if (mutation.attributeName === 'class') {
+                    const isChat = document.body.classList.contains('view-chat');
+                    document.getElementById('btn-chat').className = `flex-1 py-2 text-center rounded-md font-label font-medium transition-all duration-200 ${isChat ? 'bg-white shadow-sm text-[#1F5A3C]' : 'text-[#6B4A2B]'}`;
+                    document.getElementById('btn-spec').className = `flex-1 py-2 text-center rounded-md font-label font-medium transition-all duration-200 ${!isChat ? 'bg-white shadow-sm text-[#1F5A3C]' : 'text-[#6B4A2B]'}`;
+                }
+            });
+        });
+        observer.observe(document.body, { attributes: true });
+        
+        // Initial setup
+        setTimeout(() => {
+           document.getElementById('btn-chat').className = 'flex-1 py-2 text-center rounded-md font-label font-medium transition-all duration-200 bg-white shadow-sm text-[#1F5A3C]'; 
+        }, 50);
+    </script>
+<!-- SideNavBar (from JSON) -->
+<nav class="hidden lg:flex flex-col h-screen fixed right-0 top-0 z-40 bg-[#FFFFFF] dark:bg-surface text-[#1F5A3C] font-label text-label-md docked right-0 h-full w-64 border-l border-[#E6DDD0] flat transition-all duration-150 ease-in-out shrink-0">
+<div class="flex items-center px-6 h-16 border-b border-[#E6DDD0] shrink-0 pt-4 pb-2 mb-4">
+<span class="text-lg font-black text-[#6B4A2B] font-headline">ארון בהתאמה</span>
+</div>
+<div class="px-4 mb-6">
+<button class="w-full flex items-center justify-center gap-2 bg-[#1F5A3C] text-white py-3 px-4 rounded-xl hover:bg-[#174630] transition-colors shadow-sm font-medium">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">add</span>
+                פרויקט חדש
+            </button>
+</div>
+<ul class="flex flex-col space-y-1 px-3 flex-1 overflow-y-auto">
+<li>
+<a class="flex items-center gap-3 px-3 py-3 rounded-xl bg-[#F7F3EC] text-[#1F5A3C] border-r-4 border-[#1F5A3C] font-bold" href="#">
+<span class="material-symbols-outlined">add_box</span>
+<span>תכנון חדש</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-3 py-3 rounded-xl text-[#6B4A2B] hover:bg-[#F7F3EC] transition-colors" href="#">
+<span class="material-symbols-outlined">downloading</span>
+<span>ארונות שמורים</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-3 py-3 rounded-xl text-[#6B4A2B] hover:bg-[#F7F3EC] transition-colors" href="#">
+<span class="material-symbols-outlined">chat</span>
+<span>הודעות</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-3 py-3 rounded-xl text-[#6B4A2B] hover:bg-[#F7F3EC] transition-colors" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span>הגדרות</span>
+</a>
+</li>
+</ul>
+<div class="p-4 border-t border-[#E6DDD0] shrink-0 flex items-center gap-3 mt-auto">
+<div class="w-10 h-10 rounded-full bg-[#E6DDD0] flex items-center justify-center shrink-0 overflow-hidden relative">
+<div class="bg-cover bg-center w-full h-full absolute inset-0" data-alt="A close-up portrait of an interior designer, female, wearing glasses and a stylish neutral-toned top, looking confident. Bright, natural lighting, modern minimalist studio background. The overall aesthetic is professional, warm, and highly polished, fitting a light-mode SaaS application for design professionals." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAqm21PgJ2R3iWRuWlVRH4LbHfJuauGHIv3QS5LzrOfhEnfnKwBqkBbCVZPdHsLRbl62eZrqskEEE9Sw5APg1W7BCCV1KXllHpAF9AFzfPCcZ5Dv8L5fKEFeTMwNv36eMLQBL4veTk-xaAhXFe6TsjmvhI8mb-KjKy1YI4AmSD97zq3zyWNLy76v_5pl4x0ufs3goAv_d7U9RGx9o8Pd_UjuOA7HJUnc0GZddAruq2ADCwmyahMEc9aneXKSRb-1uA-BzG3yLmvM24V')"></div>
+</div>
+<div class="overflow-hidden">
+<p class="text-sm font-bold text-[#202124] truncate">שלום, מעצב</p>
+<p class="text-xs text-[#6B4A2B] truncate">תכנון ארון בהתאמה</p>
+</div>
+</div>
+</nav>
+<!-- Main Content Area (Layout with Margin for Sidebar on lg) -->
+<main class="flex-1 lg:mr-64 flex flex-col lg:flex-row h-screen pt-14 lg:pt-0">
+<!-- Right Column: Chat Interface -->
+<section class="flex-1 flex flex-col h-full bg-white relative max-w-full lg:max-w-3xl xl:border-l xl:border-[#E6DDD0]" id="chat-col">
+<!-- Header -->
+<header class="flex items-center gap-3 px-6 py-4 border-b border-[#E6DDD0] bg-white/80 backdrop-blur-md sticky top-0 z-10 shrink-0 shadow-sm lg:shadow-none">
+<div class="w-10 h-10 rounded-full bg-[#F7F3EC] border border-[#E6DDD0] flex items-center justify-center text-[#A9743F]">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">park</span>
+</div>
+<div>
+<h1 class="font-headline font-bold text-lg text-[#202124]">צ'אט עם העוזר לתכנון</h1>
+<p class="text-xs text-[#2F5F8F] flex items-center gap-1 mt-0.5">
+<span class="w-2 h-2 rounded-full bg-[#2E7D4F] inline-block animate-pulse"></span>
+                        מחובר
+                    </p>
+</div>
+</header>
+<!-- Chat Messages -->
+<div class="flex-1 overflow-y-auto p-4 lg:p-6 space-y-6 scroll-smooth pb-32 flex flex-col justify-end">
+<!-- Assistant Intro -->
+<div class="flex items-end gap-2 w-full justify-start max-w-[85%]">
+<div class="w-8 h-8 rounded-full bg-[#F7F3EC] border border-[#E6DDD0] flex items-center justify-center shrink-0 mb-1 text-[#A9743F]">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">park</span>
+</div>
+<div class="bg-white border border-[#E6DDD0] p-3 rounded-2xl rounded-br-sm shadow-[0_2px_8px_-2px_rgba(0,0,0,0.05)] text-sm leading-relaxed text-[#202124]">
+                        שלום! אני כאן לעזור לכם לתכנן את הארון המושלם. בואו נתחיל עם המידות הכלליות.
+                    </div>
+</div>
+<!-- User Message -->
+<div class="flex items-end gap-2 w-full justify-end max-w-[85%] mr-auto">
+<div class="bg-[#e8f3ee] text-[#1F5A3C] p-3 rounded-2xl rounded-bl-sm shadow-[0_2px_8px_-2px_rgba(0,0,0,0.05)] text-sm leading-relaxed border border-[#cbe5d8]">
+                        אני רוצה ארון 2.4 מטר רוחב, 2.6 גובה, 4 דלתות
+                    </div>
+</div>
+<!-- Assistant Message -->
+<div class="flex flex-col gap-3 w-full justify-start max-w-[85%]">
+<div class="flex items-end gap-2">
+<div class="w-8 h-8 rounded-full bg-[#F7F3EC] border border-[#E6DDD0] flex items-center justify-center shrink-0 mb-1 text-[#A9743F]">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">park</span>
+</div>
+<div class="bg-white border border-[#E6DDD0] p-3 rounded-2xl rounded-br-sm shadow-[0_2px_8px_-2px_rgba(0,0,0,0.05)] text-sm leading-relaxed text-[#202124]">
+                            מעולה, רשמתי. עדכנתי את המפרט.<br/>מה העומק הרצוי? ואיזה חומר תרצו לחזיתות הארון?
+                        </div>
+</div>
+<!-- Quick Replies -->
+<div class="flex flex-wrap gap-2 mr-10">
+<button class="px-4 py-1.5 rounded-full border border-[#6B4A2B] text-[#6B4A2B] text-xs font-medium hover:bg-[#F7F3EC] transition-colors focus:ring-2 focus:ring-[#1F5A3C] focus:outline-none bg-white">MDF מצופה</button>
+<button class="px-4 py-1.5 rounded-full border border-[#6B4A2B] text-[#6B4A2B] text-xs font-medium hover:bg-[#F7F3EC] transition-colors focus:ring-2 focus:ring-[#1F5A3C] focus:outline-none bg-white">סנדוויץ׳</button>
+<button class="px-4 py-1.5 rounded-full border border-[#6B4A2B] text-[#6B4A2B] text-xs font-medium hover:bg-[#F7F3EC] transition-colors focus:ring-2 focus:ring-[#1F5A3C] focus:outline-none bg-white">פורניר אלון</button>
+</div>
+</div>
+<!-- Error Banner -->
+<div class="mr-10 p-3 bg-[#fce8e8] border border-[#f0b5b5] rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-sm">
+<div class="flex items-center gap-2 text-[#B3261E]">
+<span class="material-symbols-outlined">error</span>
+<span class="font-medium">לא הצלחנו לקבל תשובה מהעוזר. נסה שוב</span>
+</div>
+<div class="flex items-center gap-3 shrink-0">
+<a class="text-[#6B4A2B] hover:underline text-xs" href="#">אפשר להמשיך בטופס</a>
+<button class="px-3 py-1.5 bg-[#B3261E] text-white rounded-md text-xs font-medium hover:bg-[#8c1d18] transition-colors focus:ring-2 focus:ring-offset-1 focus:ring-[#B3261E]">נסה שוב</button>
+</div>
+</div>
+<!-- Typing Indicator -->
+<div class="flex items-end gap-2 w-full justify-start max-w-[85%]">
+<div class="w-8 h-8 rounded-full bg-[#F7F3EC] border border-[#E6DDD0] flex items-center justify-center shrink-0 mb-1 text-[#A9743F]">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">park</span>
+</div>
+<div class="bg-white border border-[#E6DDD0] py-3 px-4 rounded-2xl rounded-br-sm shadow-sm flex items-center gap-1 h-[42px]">
+<span class="text-xs text-[#6B4A2B] ml-2">העוזר מקליד</span>
+<div class="flex gap-1">
+<div class="w-1.5 h-1.5 bg-[#A9743F] rounded-full typing-dot"></div>
+<div class="w-1.5 h-1.5 bg-[#A9743F] rounded-full typing-dot"></div>
+<div class="w-1.5 h-1.5 bg-[#A9743F] rounded-full typing-dot"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Input Bar (Sticky Bottom) -->
+<div class="absolute bottom-0 left-0 right-0 bg-white border-t border-[#E6DDD0] p-4 lg:p-6 pb-20 lg:pb-6 z-20">
+<div class="relative">
+<textarea class="w-full bg-[#F7F3EC] border-transparent focus:border-[#1F5A3C] focus:ring-0 rounded-xl pr-4 pl-14 py-3 text-sm resize-none h-[52px] placeholder:text-[#8a8a8a] text-[#202124]" placeholder="כתבו כאן..." rows="1"></textarea>
+<button class="absolute left-2 top-1.5 w-10 h-10 bg-[#1F5A3C] text-white rounded-lg flex items-center justify-center hover:bg-[#174630] transition-colors focus:ring-2 focus:ring-offset-2 focus:ring-[#1F5A3C]">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">send</span>
+</button>
+</div>
+<div class="flex justify-between items-center mt-2 px-1">
+<p class="text-[10px] text-[#8a8a8a]">עד 2000 תווים</p>
+<button class="text-[10px] text-[#6B4A2B] flex items-center gap-1 hover:text-[#1F5A3C]">
+<span class="material-symbols-outlined text-[14px]">mic</span>
+                        הקלטה קולית
+                    </button>
+</div>
+</div>
+</section>
+<!-- Left Column: Spec Card (Sticky) -->
+<section class="flex-1 h-full bg-[#F7F3EC] p-4 lg:p-8 flex-col pb-24 lg:pb-8" id="spec-col">
+<div class="bg-white rounded-2xl shadow-[0_4px_24px_-8px_rgba(0,0,0,0.08)] border border-[#E6DDD0] flex flex-col h-full max-h-[850px] w-full max-w-2xl mx-auto overflow-hidden">
+<!-- Card Header -->
+<div class="p-6 border-b border-[#E6DDD0] bg-[#FAFAFA] flex justify-between items-start shrink-0">
+<div>
+<h2 class="font-headline font-bold text-xl text-[#202124] mb-1">המפרט שלכם — גרסה 3</h2>
+<div class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-[#eaf2f8] text-[#2F5F8F] border border-[#b8d6f0]">
+<span class="material-symbols-outlined text-sm">warning</span>
+<span class="text-xs font-medium">נדרשת בדיקה ידנית</span>
+</div>
+</div>
+<button aria-label="ערוך" class="text-[#6B4A2B] hover:text-[#1F5A3C] p-1 rounded-md hover:bg-[#F7F3EC] transition-colors">
+<span class="material-symbols-outlined">edit</span>
+</button>
+</div>
+<!-- Card Content (Scrollable Grid) -->
+<div class="p-6 overflow-y-auto flex-1 custom-scrollbar">
+<div class="space-y-8">
+<!-- Section: Dimensions -->
+<div>
+<h3 class="font-headline font-semibold text-sm text-[#6B4A2B] mb-4 flex items-center gap-2 border-b border-[#E6DDD0] pb-2">
+<span class="material-symbols-outlined text-[18px]">straighten</span>
+                                מידות
+                            </h3>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+<div class="space-y-1">
+<label class="text-xs font-medium text-[#4a4a4a] block">רוחב (ס״מ)</label>
+<input class="w-full h-11 border border-[#E6DDD0] rounded-lg bg-[#FAFAFA] px-3 text-sm focus:border-[#1F5A3C] focus:ring-1 focus:ring-[#1F5A3C] outline-none transition-all" type="text" value="240"/>
+</div>
+<div class="space-y-1">
+<label class="text-xs font-medium text-[#4a4a4a] block">גובה (ס״מ)</label>
+<input class="w-full h-11 border border-[#E6DDD0] rounded-lg bg-[#FAFAFA] px-3 text-sm focus:border-[#1F5A3C] focus:ring-1 focus:ring-[#1F5A3C] outline-none transition-all" type="text" value="260"/>
+</div>
+<div class="space-y-1">
+<label class="text-xs font-medium text-[#B7791F] block">עומק</label>
+<div class="w-full h-11 border-2 border-dashed border-[#B7791F]/40 bg-[#fef9f0] rounded-lg flex items-center justify-between px-3 cursor-pointer hover:bg-[#fdf3e1] transition-colors group">
+<span class="text-sm text-[#B7791F] group-hover:text-[#966219]">בחר עומק...</span>
+<span class="text-[10px] bg-[#B7791F] text-white px-1.5 py-0.5 rounded uppercase font-bold tracking-wider">חסר</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Section: Materials & Structure -->
+<div>
+<h3 class="font-headline font-semibold text-sm text-[#6B4A2B] mb-4 flex items-center gap-2 border-b border-[#E6DDD0] pb-2">
+<span class="material-symbols-outlined text-[18px]">layers</span>
+                                חומרים ומבנה
+                            </h3>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div class="space-y-1">
+<label class="text-xs font-medium text-[#4a4a4a] block">חומר גוף</label>
+<select class="w-full h-11 border border-[#E6DDD0] rounded-lg bg-[#FAFAFA] px-3 text-sm focus:border-[#1F5A3C] focus:ring-1 focus:ring-[#1F5A3C] outline-none transition-all appearance-none pr-8 bg-[url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23202124%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E')] bg-no-repeat bg-[length:10px_10px] bg-[position:left_1rem_center]">
+<option>סנדוויץ׳</option>
+<option>MDF</option>
+<option>מלמין</option>
+</select>
+</div>
+<div class="space-y-1">
+<label class="text-xs font-medium text-[#B7791F] block">חומר חזיתות</label>
+<div class="w-full h-11 border-2 border-dashed border-[#B7791F]/40 bg-[#fef9f0] rounded-lg flex items-center justify-between px-3 cursor-pointer hover:bg-[#fdf3e1] transition-colors group">
+<span class="text-sm text-[#B7791F] group-hover:text-[#966219]">בחר חזית...</span>
+<span class="text-[10px] bg-[#B7791F] text-white px-1.5 py-0.5 rounded uppercase font-bold tracking-wider">חסר</span>
+</div>
+</div>
+<div class="space-y-1 md:col-span-2">
+<label class="text-xs font-medium text-[#4a4a4a] block">מספר דלתות</label>
+<div class="flex gap-2">
+<button class="flex-1 h-11 border border-[#E6DDD0] rounded-lg bg-white text-sm hover:bg-[#F7F3EC] transition-colors focus:outline-none focus:ring-2 focus:ring-[#1F5A3C]">2</button>
+<button class="flex-1 h-11 border border-[#E6DDD0] rounded-lg bg-white text-sm hover:bg-[#F7F3EC] transition-colors focus:outline-none focus:ring-2 focus:ring-[#1F5A3C]">3</button>
+<button class="flex-1 h-11 border-2 border-[#1F5A3C] rounded-lg bg-[#e8f3ee] text-[#1F5A3C] font-bold text-sm focus:outline-none focus:ring-2 focus:ring-[#1F5A3C] focus:ring-offset-1">4</button>
+<button class="flex-1 h-11 border border-[#E6DDD0] rounded-lg bg-white text-sm hover:bg-[#F7F3EC] transition-colors focus:outline-none focus:ring-2 focus:ring-[#1F5A3C]">5+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Section: Internal Org -->
+<div>
+<h3 class="font-headline font-semibold text-sm text-[#6B4A2B] mb-4 flex items-center gap-2 border-b border-[#E6DDD0] pb-2">
+<span class="material-symbols-outlined text-[18px]">shelves</span>
+                                פנים הארון
+                            </h3>
+<div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+<div class="space-y-1">
+<label class="text-xs font-medium text-[#4a4a4a] block">מגירות פנימיות</label>
+<input class="w-full h-11 border border-[#E6DDD0] rounded-lg bg-[#FAFAFA] px-3 text-sm focus:border-[#1F5A3C] focus:ring-1 focus:ring-[#1F5A3C] outline-none transition-all" min="0" type="number" value="0"/>
+</div>
+<div class="space-y-1">
+<label class="text-xs font-medium text-[#4a4a4a] block">מדפים</label>
+<input class="w-full h-11 border border-[#E6DDD0] rounded-lg bg-[#FAFAFA] px-3 text-sm focus:border-[#1F5A3C] focus:ring-1 focus:ring-[#1F5A3C] outline-none transition-all" min="0" type="number" value="6"/>
+</div>
+<div class="space-y-1 col-span-2 md:col-span-1">
+<label class="text-xs font-medium text-[#4a4a4a] block">תאים אנכיים</label>
+<input class="w-full h-11 border border-[#E6DDD0] rounded-lg bg-[#FAFAFA] px-3 text-sm focus:border-[#1F5A3C] focus:ring-1 focus:ring-[#1F5A3C] outline-none transition-all" min="1" type="number" value="2"/>
+</div>
+</div>
+</div>
+<!-- Section: Extras -->
+<div>
+<h3 class="font-headline font-semibold text-sm text-[#6B4A2B] mb-4 flex items-center gap-2 border-b border-[#E6DDD0] pb-2">
+<span class="material-symbols-outlined text-[18px]">tune</span>
+                                תוספות ושירותים
+                            </h3>
+<div class="flex flex-wrap gap-4">
+<label class="flex items-center gap-2 cursor-pointer group">
+<input checked="" class="w-5 h-5 rounded border-[#E6DDD0] text-[#1F5A3C] focus:ring-[#1F5A3C] bg-white" type="checkbox"/>
+<span class="text-sm text-[#4a4a4a] group-hover:text-[#202124]">טריקה שקטה</span>
+</label>
+<label class="flex items-center gap-2 cursor-pointer group">
+<input class="w-5 h-5 rounded border-[#E6DDD0] text-[#1F5A3C] focus:ring-[#1F5A3C] bg-white" type="checkbox"/>
+<span class="text-sm text-[#4a4a4a] group-hover:text-[#202124]">הובלה</span>
+</label>
+<label class="flex items-center gap-2 cursor-pointer group">
+<input class="w-5 h-5 rounded border-[#E6DDD0] text-[#1F5A3C] focus:ring-[#1F5A3C] bg-white" type="checkbox"/>
+<span class="text-sm text-[#4a4a4a] group-hover:text-[#202124]">התקנה</span>
+</label>
+</div>
+</div>
+<!-- Section: Notes -->
+<div>
+<div class="space-y-1">
+<label class="text-xs font-medium text-[#4a4a4a] block">עיר</label>
+<input class="w-full h-11 border border-[#E6DDD0] rounded-lg bg-[#FAFAFA] px-3 text-sm focus:border-[#1F5A3C] focus:ring-1 focus:ring-[#1F5A3C] outline-none transition-all" placeholder="הכנס עיר לאספקה..." type="text"/>
+</div>
+<div class="space-y-1 mt-4">
+<label class="text-xs font-medium text-[#4a4a4a] block">הערות נוספות</label>
+<textarea class="w-full border border-[#E6DDD0] rounded-lg bg-[#FAFAFA] p-3 text-sm focus:border-[#1F5A3C] focus:ring-1 focus:ring-[#1F5A3C] outline-none transition-all resize-none" placeholder="בקשות מיוחדות מהנגר..." rows="2"></textarea>
+</div>
+</div>
+</div>
+</div>
+<!-- Card Footer -->
+<div class="p-4 border-t border-[#E6DDD0] bg-white shrink-0 flex items-center justify-between">
+<div class="flex items-center gap-1.5 text-[#8a8a8a]">
+<span class="material-symbols-outlined text-[16px]">cloud_done</span>
+<span class="text-xs font-medium">נשמר אוטומטית 12:43</span>
+</div>
+<button class="h-11 px-6 rounded-lg bg-[#e0e0e0] text-[#a0a0a0] font-bold text-sm cursor-not-allowed flex items-center gap-2" disabled="">
+                        לסיכום ושליחה לנגר
+                        <span class="material-symbols-outlined text-sm">arrow_left_alt</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Mobile BottomNavBar (from JSON) -->
+<nav class="lg:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-4 pt-2 bg-[#FFFFFF] dark:bg-surface text-[#1F5A3C] font-label text-xs docked full-width bottom-0 rounded-t-xl border-t border-[#E6DDD0] bg-[#FFFFFF] shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)]">
+<a class="flex flex-col items-center justify-center bg-[#1F5A3C] text-white rounded-xl px-6 py-1 active:scale-95 duration-100" href="#" onclick="document.body.className='bg-[#F7F3EC] text-[#202124] font-body min-h-screen flex view-chat overflow-hidden'">
+<span class="material-symbols-outlined mb-1">chat_bubble</span>
+<span>צ'אט תכנון</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#6B4A2B] opacity-70 hover:bg-[#F7F3EC] px-6 py-1 rounded-xl active:scale-95 duration-100" href="#" onclick="document.body.className='bg-[#F7F3EC] text-[#202124] font-body min-h-screen flex view-spec overflow-hidden'">
+<span class="material-symbols-outlined mb-1">fact_check</span>
+<span>מפרט ארון</span>
+</a>
+</nav>
+</main>
+</body></html>

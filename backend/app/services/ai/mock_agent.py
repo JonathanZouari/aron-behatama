@@ -84,7 +84,10 @@ def extract_patch(text: str, current: WardrobeSpec) -> tuple[SpecPatch, list[str
         value = _count(lowered, nouns)
         if value is not None:
             data[field] = value
+    fronts_only = "חזית" in lowered and "גוף" not in lowered
     for field, options in MATERIAL_KEYWORDS.items():
+        if field == "body_material_id" and fronts_only:
+            continue  # "חזיתות MDF" אינו קובע את חומר הגוף
         for keyword, code in options:
             if keyword in lowered:
                 data[field] = code

@@ -1,0 +1,57 @@
+/* עיצוב ממשק הלקוח: אוורירי, עמודה אחת בנייד */
+.hero { display: grid; grid-template-columns: 1.3fr 1fr; gap: 2rem; align-items: center; padding: 2rem 0 2.5rem; }
+.hero .lead { font-size: 1.1rem; color: var(--text-2); max-width: 46ch; }
+.example-card blockquote { margin: 0.5rem 0; padding: 0.9rem 1rem; background: var(--surface-2); border-inline-start: 4px solid var(--oak-light); border-radius: var(--radius); font-size: 1.05rem; }
+.center { text-align: center; }
+.steps .card { text-align: center; }
+.step-num { width: 40px; height: 40px; border-radius: 50%; background: var(--primary-soft); color: var(--primary); display: grid; place-items: center; font: 700 1.1rem var(--font-head); margin: 0 auto 0.75rem; }
+.cta-card { text-align: center; margin-top: 2rem; padding: 2rem; }
+.cta-card .btn { margin-top: 0.5rem; }
+@media (max-width: 860px) { .hero { grid-template-columns: 1fr; padding-top: 1rem; } }
+
+/* ---- שיחה ומפרט ---- */
+.planner { display: grid; grid-template-columns: 1.4fr 1fr; gap: 1.25rem; align-items: start; }
+.chat-card { display: flex; flex-direction: column; height: calc(100vh - 150px); min-height: 520px; padding: 0; overflow: hidden; }
+.chat-head { padding: 0.9rem 1rem; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; gap: 0.5rem; }
+.chat-log { flex: 1; overflow-y: auto; padding: 1rem; display: grid; gap: 0.75rem; align-content: start; }
+.bubble { max-width: 85%; padding: 0.7rem 0.95rem; border-radius: 14px; line-height: 1.55; white-space: pre-wrap; word-break: break-word; }
+.bubble.assistant { background: var(--surface-2); border: 1px solid var(--border); justify-self: start; border-start-start-radius: 4px; }
+.bubble.user { background: var(--primary-soft); justify-self: end; border-start-end-radius: 4px; }
+.bubble .meta { display: block; font-size: 0.72rem; color: var(--text-3); margin-top: 0.3rem; }
+.typing { display: inline-flex; gap: 4px; padding: 0.6rem 0.9rem; }
+.typing span { width: 7px; height: 7px; border-radius: 50%; background: var(--text-3); animation: blink 1.2s infinite; }
+.typing span:nth-child(2) { animation-delay: 0.2s; } .typing span:nth-child(3) { animation-delay: 0.4s; }
+@keyframes blink { 0%, 80%, 100% { opacity: 0.2; } 40% { opacity: 1; } }
+.quick-replies { display: flex; gap: 0.4rem; flex-wrap: wrap; padding: 0 1rem 0.5rem; }
+.quick-replies button { border: 1px solid var(--primary); background: #fff; color: var(--primary); border-radius: 999px; padding: 0.3rem 0.8rem; font: 500 0.85rem var(--font-head); cursor: pointer; }
+.chat-input { display: flex; gap: 0.5rem; padding: 0.75rem 1rem; border-top: 1px solid var(--border); background: var(--surface); align-items: flex-end; }
+.chat-input textarea { min-height: 44px; max-height: 140px; }
+.chat-input .counter { font-size: 0.75rem; color: var(--text-3); white-space: nowrap; align-self: center; }
+.spec-card { position: sticky; top: 76px; max-height: calc(100vh - 100px); overflow-y: auto; }
+.spec-card .form-grid { grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); }
+.spec-section { margin-top: 0.75rem; }
+.spec-section h4 { margin: 0 0 0.5rem; color: var(--walnut); font-size: 0.9rem; }
+.spec-footer { position: sticky; bottom: 0; background: var(--surface); padding-top: 0.75rem; margin-top: 0.75rem; border-top: 1px solid var(--border); }
+.save-indicator { font-size: 0.8rem; color: var(--text-3); }
+.mobile-toggle { display: none; margin-bottom: 0.75rem; }
+.mobile-toggle .seg { display: inline-flex; border: 1px solid var(--border); border-radius: 999px; overflow: hidden; background: var(--surface); }
+.mobile-toggle button { border: 0; background: transparent; padding: 0.5rem 1.2rem; font: 500 0.95rem var(--font-head); cursor: pointer; }
+.mobile-toggle button[aria-pressed="true"] { background: var(--primary); color: #fff; }
+@media (max-width: 960px) {
+  .planner { grid-template-columns: 1fr; }
+  .mobile-toggle { display: block; }
+  .planner[data-view="chat"] .spec-card, .planner[data-view="spec"] .chat-card { display: none; }
+  .chat-card { height: calc(100vh - 220px); }
+  .spec-card { position: static; max-height: none; }
+}
+
+/* ---- סיכום / מעקב / הצעה ---- */
+.summary-layout { display: grid; grid-template-columns: 1.2fr 1fr; gap: 1.25rem; align-items: start; }
+@media (max-width: 860px) { .summary-layout { grid-template-columns: 1fr; } }
+.spec-summary dl { margin: 0; }
+.spec-summary .group { margin-bottom: 1rem; }
+.spec-summary .group h4 { margin: 0 0 0.4rem; color: var(--walnut); font-size: 0.9rem; border-bottom: 1px solid var(--border); padding-bottom: 0.3rem; }
+.privacy { font-size: 0.85rem; color: var(--text-2); background: var(--surface-2); padding: 0.75rem; border-radius: var(--radius); }
+.link-box { display: flex; gap: 0.5rem; }
+.link-box input { direction: ltr; font-family: ui-monospace, monospace; font-size: 0.85rem; }
+.quote-total { text-align: end; }

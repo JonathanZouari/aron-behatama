@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ניהול מחירון — ארון בהתאמה</title>
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&family=Noto+Sans+Hebrew:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/admin.css">
+  <script src="/config.js"></script>
+</head>
+<body>
+  <div class="admin-layout">
+    <nav class="rail" id="rail" aria-label="ניווט ניהול"></nav>
+    <main class="admin-main">
+      <div class="page-title">
+        <div><h1>ניהול מחירון <span class="muted small" id="version"></span></h1><span class="muted small">המחירים הם מחירי מכירה לפני מע״מ. שמירה יוצרת גרסת מחירון חדשה; הצעות קיימות אינן משתנות.</span></div>
+        <button class="btn btn-primary" type="button" id="save-btn">שמירה כגרסה חדשה</button>
+      </div>
+      <div id="page-alert" hidden></div>
+      <div id="demo-alert"></div>
+
+      <section class="card">
+        <div class="tabs" role="tablist" id="tabs">
+          <button role="tab" aria-selected="true" data-tab="material">חומרים</button>
+          <button role="tab" aria-selected="false" data-tab="back_material">גב</button>
+          <button role="tab" aria-selected="false" data-tab="finish">גימורים</button>
+          <button role="tab" aria-selected="false" data-tab="hardware">פרזול</button>
+          <button role="tab" aria-selected="false" data-tab="drawer">מגירות</button>
+          <button role="tab" aria-selected="false" data-tab="service">שירותים</button>
+          <button role="tab" aria-selected="false" data-tab="delivery">אזורי הובלה</button>
+          <button role="tab" aria-selected="false" data-tab="settings">הגדרות</button>
+        </div>
+        <div id="items-panel">
+          <div class="table-wrap">
+            <table class="inline-edit">
+              <thead><tr><th>קוד</th><th>שם</th><th>יחידה</th><th class="num">מחיר</th><th>כולל טריקה שקטה</th><th>פעיל</th><th></th></tr></thead>
+              <tbody id="rows"></tbody>
+            </table>
+          </div>
+          <div id="empty" class="empty" hidden><h3>אין פריטים בקטגוריה זו</h3></div>
+          <button class="btn btn-sm btn-ghost" type="button" id="add-item">+ הוספת פריט</button>
+        </div>
+        <div id="settings-panel" hidden class="stack" style="max-width:520px">
+          <div class="form-grid">
+            <div class="field"><label for="waste_rate">פחת לוחות (%)</label><input id="waste_rate" type="number" step="0.1" min="0" max="100"></div>
+            <div class="field"><label for="vat_rate">שיעור מע״מ (%)</label><input id="vat_rate" type="number" step="0.1" min="0" max="100"><span class="hint">ערך לדוגמה — יש לאמת מול רואה החשבון. אינו מוצג כשיעור חוקי מאומת.</span></div>
+            <div class="field"><label for="quote_validity_days">תוקף הצעה (ימים)</label><input id="quote_validity_days" type="number" min="1" max="365"></div>
+          </div>
+          <h3 style="font-size:1rem">עבודה</h3>
+          <div class="form-grid">
+            <div class="field"><label for="base_labor_price">עבודה בסיסית (₪)</label><input id="base_labor_price" type="number" step="0.01" min="0"></div>
+            <div class="field"><label for="labor_per_door">תוספת לדלת (₪)</label><input id="labor_per_door" type="number" step="0.01" min="0"></div>
+            <div class="field"><label for="labor_per_drawer">תוספת למגירה (₪)</label><input id="labor_per_drawer" type="number" step="0.01" min="0"></div>
+            <div class="field"><label for="labor_per_shelf">תוספת למדף (₪)</label><input id="labor_per_shelf" type="number" step="0.01" min="0"></div>
+          </div>
+          <h3 style="font-size:1rem">קודי פריטים שמנוע התמחור משתמש בהם</h3>
+          <div class="form-grid">
+            <div class="field"><label for="back_material_code">קוד חומר גב</label><input id="back_material_code"></div>
+            <div class="field"><label for="door_hardware_code">קוד פרזול דלת</label><input id="door_hardware_code"></div>
+            <div class="field"><label for="drawer_package_code">קוד חבילת מגירה</label><input id="drawer_package_code"></div>
+            <div class="field"><label for="soft_close_code">קוד טריקה שקטה</label><input id="soft_close_code"></div>
+            <div class="field"><label for="installation_code">קוד התקנה</label><input id="installation_code"></div>
+          </div>
+          <label class="check"><input type="checkbox" id="confirmed_by_carpenter"> המחירון ושיעור המע״מ אומתו על ידי הנגר (נדרש לפרסום הצעות בייצור)</label>
+          <label class="check"><input type="checkbox" id="is_demo"> מחירון פיתוח לדוגמה (המחירים אינם מחירי שוק מאומתים)</label>
+        </div>
+      </section>
+
+      <section class="card" style="margin-top:1rem">
+        <h2>גרסאות קודמות</h2>
+        <div class="table-wrap"><table><thead><tr><th>גרסה</th><th>נוצרה</th><th>פעילה</th><th>דמו</th></tr></thead><tbody id="versions"></tbody></table></div>
+      </section>
+    </main>
+  </div>
+  <script type="module" src="/js/admin/pricebook.js"></script>
+</body>
+</html>

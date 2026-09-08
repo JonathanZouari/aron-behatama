@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>כניסת נגר — ארון בהתאמה</title>
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&family=Noto+Sans+Hebrew:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/admin.css">
+  <script src="/config.js"></script>
+</head>
+<body>
+  <div class="login-wrap">
+    <div class="card login-card">
+      <div class="login-band">
+        <div class="brand" style="color:#fff"><span class="brand-mark" aria-hidden="true">א</span>ארון בהתאמה · אזור הנגר</div>
+        <p class="small" style="margin:0.5rem 0 0;opacity:0.9">הגישה מיועדת לנגר מורשה בלבד. אין הרשמה עצמית.</p>
+      </div>
+      <div class="login-body stack">
+        <div id="alert" hidden></div>
+        <form id="login-form" class="stack">
+          <div class="field">
+            <label for="email">דוא״ל</label>
+            <input id="email" type="email" autocomplete="username" required dir="ltr">
+          </div>
+          <div class="field">
+            <label for="password">סיסמה</label>
+            <div class="row" style="flex-wrap:nowrap">
+              <input id="password" type="password" autocomplete="current-password" required dir="ltr">
+              <button class="btn btn-sm btn-ghost" type="button" id="toggle-pw" aria-label="הצגת סיסמה">הצג</button>
+            </div>
+          </div>
+          <button class="btn btn-primary" type="submit" id="login-btn">התחברות</button>
+        </form>
+        <div id="demo-box" hidden class="stack">
+          <hr>
+          <div class="alert alert-warning"><span>סביבת דמו: אין חיבור ל-Supabase. ההתחברות היא לנגר דמו בלבד וחסומה בייצור.</span></div>
+          <button class="btn btn-secondary" type="button" id="demo-btn">כניסת דמו כנגר</button>
+        </div>
+        <a class="muted small" href="/">חזרה לאתר הלקוחות</a>
+      </div>
+    </div>
+  </div>
+  <script type="module">
+    import { hasSupabase, signIn, signInDemo } from '/js/admin/auth.js';
+    import { setBusy, showError } from '/js/ui.js';
+    const alertBox = document.getElementById('alert');
+    const form = document.getElementById('login-form');
+    if (!hasSupabase()) { form.hidden = true; document.getElementById('demo-box').hidden = false; }
+    document.getElementById('toggle-pw').onclick = () => {
+      const pw = document.getElementById('password');
+      pw.type = pw.type === 'password' ? 'text' : 'password';
+    };
+    async function go(fn, btn) {
+      alertBox.hidden = true; setBusy(btn, true);
+      try { await fn(); location.href = '/admin/dashboard.html'; }
+      catch (err) { showError(alertBox, err.message); alertBox.hidden = false; }
+      finally { setBusy(btn, false); }
+    }
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      go(() => signIn(document.getElementById('email').value.trim(), document.getElementById('password').value), document.getElementById('login-btn'));
+    });
+    document.getElementById('demo-btn').onclick = (e) => go(signInDemo, e.currentTarget);
+  </script>
+</body>
+</html>

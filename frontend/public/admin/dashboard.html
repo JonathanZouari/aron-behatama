@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>לוח בקרה — ארון בהתאמה</title>
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&family=Noto+Sans+Hebrew:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/admin.css">
+  <script src="/config.js"></script>
+</head>
+<body>
+  <div class="admin-layout">
+    <nav class="rail" id="rail" aria-label="ניווט ניהול"></nav>
+    <main class="admin-main">
+      <div class="page-title"><h1>לוח בקרה</h1><button class="btn btn-sm btn-secondary" type="button" id="refresh">רענון</button></div>
+      <div id="page-alert" hidden></div>
+      <div class="kpis" id="kpis">
+        <div class="kpi skeleton" style="height:80px"></div><div class="kpi skeleton" style="height:80px"></div>
+        <div class="kpi skeleton" style="height:80px"></div><div class="kpi skeleton" style="height:80px"></div>
+      </div>
+
+      <section class="card">
+        <div class="card-header"><h2>פניות</h2><span class="muted small" id="count"></span></div>
+        <div class="toolbar">
+          <input type="search" id="q" placeholder="חיפוש לפי מספר פנייה, שם או טלפון" aria-label="חיפוש">
+          <select id="status" aria-label="סינון לפי סטטוס">
+            <option value="">כל הסטטוסים</option>
+            <option value="collecting_details">איסוף פרטים</option>
+            <option value="awaiting_carpenter">ממתינה לנגר</option>
+            <option value="quote_available">הצעה זמינה</option>
+            <option value="change_requested">בקשת שינוי</option>
+            <option value="accepted">אושרה</option>
+            <option value="closed">סגורה</option>
+          </select>
+          <label class="check small"><input type="checkbox" id="manual"> רק בדיקה ידנית</label>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>מספר</th><th>תאריך</th><th>לקוח</th><th>מידות (ר×ג×ע)</th><th>סטטוס</th><th class="num">מחיר</th><th>בדיקה ידנית</th></tr></thead>
+            <tbody id="rows"><tr><td colspan="7"><div class="skeleton" style="height:40px"></div></td></tr></tbody>
+          </table>
+        </div>
+        <div id="empty" class="empty" hidden><h3>אין פניות התואמות לסינון</h3><p>נסו לשנות את החיפוש או הסינון.</p></div>
+      </section>
+    </main>
+  </div>
+  <script type="module" src="/js/admin/dashboard.js"></script>
+</body>
+</html>

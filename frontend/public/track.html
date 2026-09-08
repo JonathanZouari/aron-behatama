@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>מעקב פנייה — ארון בהתאמה</title>
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&family=Noto+Sans+Hebrew:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/customer.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="container">
+      <a class="brand" href="/"><span class="brand-mark" aria-hidden="true">א</span>ארון בהתאמה</a>
+      <nav class="nav-links"><a href="/">דף הבית</a></nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <div id="page-alert" hidden></div>
+    <div id="loading"><div class="skeleton" style="height:120px;margin-bottom:1rem"></div><div class="skeleton" style="height:240px"></div></div>
+
+    <div id="content" hidden class="stack">
+      <section class="card">
+        <div class="card-header">
+          <div>
+            <h1 style="font-size:1.5rem">פנייה <span id="number"></span></h1>
+            <span class="muted small" id="created"></span>
+          </div>
+          <span id="status-chip"></span>
+        </div>
+        <div class="stepper" id="stepper" aria-label="התקדמות הפנייה"></div>
+        <div id="status-message" style="margin-top:1rem"></div>
+      </section>
+
+      <div class="summary-layout">
+        <section class="card spec-summary">
+          <div class="card-header"><h2>המפרט שנשלח <span class="muted small" id="spec-version"></span></h2></div>
+          <div id="spec-groups"></div>
+        </section>
+
+        <section class="card">
+          <h2>קישור גישה אישי</h2>
+          <p class="muted small">קישור אישי מאפשר לחזור לפנייה הזאת מכל מכשיר, גם אחרי סגירת הדפדפן. שמרו אותו במקום בטוח — הוא מאפשר גישה לפנייה ואינו מהווה זיהוי משפטי.</p>
+          <button class="btn btn-secondary" type="button" id="link-btn">יצירת קישור אישי</button>
+          <div id="link-result" hidden class="stack" style="margin-top:0.75rem">
+            <div class="link-box">
+              <input type="text" id="link-input" readonly aria-label="קישור אישי">
+              <button class="btn btn-sm btn-primary" type="button" id="copy-btn">העתקה</button>
+            </div>
+            <span class="muted small" id="link-expiry"></span>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+  <script type="module" src="/js/track.js"></script>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>תכנון ארון — ארון בהתאמה</title>
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&family=Noto+Sans+Hebrew:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/customer.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="container">
+      <a class="brand" href="/"><span class="brand-mark" aria-hidden="true">א</span>ארון בהתאמה</a>
+      <nav class="nav-links" aria-label="ניווט ראשי">
+        <span class="muted small" id="inquiry-number"></span>
+        <a href="/track.html">מעקב פנייה</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <div id="page-alert" hidden></div>
+
+    <div class="mobile-toggle" role="tablist" aria-label="מעבר בין שיחה למפרט">
+      <div class="seg">
+        <button type="button" role="tab" data-view="chat" aria-pressed="true">שיחה</button>
+        <button type="button" role="tab" data-view="spec" aria-pressed="false">מפרט</button>
+      </div>
+    </div>
+
+    <div class="planner" id="planner" data-view="chat">
+      <section class="card chat-card" aria-label="שיחה עם העוזר לתכנון">
+        <div class="chat-head">
+          <div>
+            <h2 style="margin:0">שיחה עם העוזר לתכנון</h2>
+            <span class="muted small" id="ai-mode"></span>
+          </div>
+          <a class="btn btn-sm btn-secondary" href="/summary.html" id="to-summary-top">לסיכום</a>
+        </div>
+        <div class="chat-log" id="chat-log" aria-live="polite">
+          <div class="skeleton" style="height:48px;width:70%"></div>
+          <div class="skeleton" style="height:48px;width:50%;justify-self:end"></div>
+        </div>
+        <div class="quick-replies" id="quick-replies"></div>
+        <form class="chat-input" id="chat-form">
+          <label class="visually-hidden" for="chat-text">הודעה לעוזר</label>
+          <textarea id="chat-text" placeholder="כתבו כאן… למשל: ארון 240 על 260, עומק 60, 4 דלתות" maxlength="2000" rows="1" required></textarea>
+          <span class="counter" id="counter">0/2000</span>
+          <button class="btn btn-primary" type="submit" id="send-btn">שליחה</button>
+        </form>
+      </section>
+
+      <aside class="card spec-card" aria-label="כרטיס מפרט">
+        <div class="card-header">
+          <h3>המפרט שלכם <span class="muted small" id="spec-version"></span></h3>
+          <span class="save-indicator" id="save-indicator">נשמר</span>
+        </div>
+        <div id="manual-badge" hidden></div>
+        <div id="spec-form"></div>
+        <div class="spec-footer">
+          <p class="muted small" id="missing-summary"></p>
+          <a class="btn btn-primary" href="/summary.html" id="to-summary" style="width:100%">לסיכום ושליחה לנגר</a>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <script type="module" src="/js/chat.js"></script>
+</body>
+</html>

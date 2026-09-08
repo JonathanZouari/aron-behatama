@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>פרטי פנייה — ארון בהתאמה</title>
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&family=Noto+Sans+Hebrew:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/customer.css">
+  <link rel="stylesheet" href="/css/admin.css">
+  <script src="/config.js"></script>
+</head>
+<body>
+  <div class="admin-layout">
+    <nav class="rail" id="rail" aria-label="ניווט ניהול"></nav>
+    <main class="admin-main">
+      <div id="page-alert" hidden></div>
+      <div class="page-title">
+        <div>
+          <a class="small" href="/admin/dashboard.html">← לכל הפניות</a>
+          <h1>פנייה <span id="number"></span> <span id="status-chip"></span> <span id="manual-chip"></span></h1>
+          <div class="muted small" id="contact"></div>
+        </div>
+        <div class="actions-bar">
+          <button class="btn btn-sm btn-secondary" type="button" id="reopen-btn" hidden>סימון: בטיפול הנגר</button>
+          <button class="btn btn-sm btn-danger" type="button" id="close-btn">סגירת פנייה</button>
+        </div>
+      </div>
+      <div id="stale-alert"></div>
+
+      <div class="detail-grid" id="detail" hidden>
+        <!-- מפרט -->
+        <section class="card">
+          <div class="card-header">
+            <h2>מפרט <span class="muted small" id="spec-version"></span></h2>
+            <button class="btn btn-sm btn-primary" type="button" id="save-spec" disabled>שמירת שינויים</button>
+          </div>
+          <div id="manual-panel"></div>
+          <div id="spec-form"></div>
+        </section>
+
+        <!-- תמחור -->
+        <section class="card">
+          <div class="card-header"><h2>רכיבי מחיר</h2><span class="muted small" id="pricebook-version"></span></div>
+          <div class="versions" id="versions"></div>
+          <div id="quote-area"><p class="muted">עדיין לא חושבה טיוטה. לחצו ״חישוב טיוטה״.</p></div>
+          <hr>
+          <h3 style="font-size:1rem">התאמות ידניות של הנגר</h3>
+          <div id="adjustments" class="stack"></div>
+          <button class="btn btn-sm btn-ghost" type="button" id="add-adj">+ הוספת סעיף ידני</button>
+          <div class="field" style="margin-top:0.5rem">
+            <label for="zone">אזור הובלה (ריק = לפי העיר)</label>
+            <select id="zone"></select>
+          </div>
+          <label class="check small"><input type="checkbox" id="manual-handled"> טיפלתי בכל הדרישות שאינן מתומחרות אוטומטית</label>
+          <div class="actions-bar" style="margin-top:0.75rem">
+            <button class="btn btn-secondary" type="button" id="recalc-btn">חישוב טיוטה</button>
+            <button class="btn btn-primary" type="button" id="publish-btn" disabled>פרסום ללקוח</button>
+            <button class="btn btn-danger btn-sm" type="button" id="cancel-quote-btn" hidden>ביטול הצעה</button>
+          </div>
+        </section>
+
+        <!-- שיחה / הערות / היסטוריה -->
+        <section class="card">
+          <div class="tabs" role="tablist">
+            <button role="tab" aria-selected="true" data-tab="chat">שיחה</button>
+            <button role="tab" aria-selected="false" data-tab="notes">הערות פנימיות</button>
+            <button role="tab" aria-selected="false" data-tab="history">היסטוריה</button>
+          </div>
+          <div id="tab-chat" class="chat-transcript"></div>
+          <div id="tab-notes" hidden class="stack">
+            <p class="muted small">הערות אלו אינן מוצגות ללקוח.</p>
+            <div id="notes-list" class="stack"></div>
+            <form id="note-form" class="stack">
+              <textarea id="note-text" placeholder="הערה פנימית…" maxlength="4000" required></textarea>
+              <button class="btn btn-sm btn-secondary" type="submit">הוספת הערה</button>
+            </form>
+          </div>
+          <div id="tab-history" hidden><ul class="timeline" id="events"></ul></div>
+        </section>
+      </div>
+    </main>
+  </div>
+  <script type="module" src="/js/admin/inquiry.js"></script>
+</body>
+</html>

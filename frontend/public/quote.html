@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>הצעת המחיר שלכם — ארון בהתאמה</title>
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&family=Noto+Sans+Hebrew:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/customer.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="container">
+      <a class="brand" href="/"><span class="brand-mark" aria-hidden="true">א</span>ארון בהתאמה</a>
+      <nav class="nav-links"><a href="#" id="back-link">חזרה למעקב</a></nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <div id="page-alert" hidden></div>
+    <div id="loading"><div class="skeleton" style="height:100px;margin-bottom:1rem"></div><div class="skeleton" style="height:300px"></div></div>
+
+    <div id="content" hidden class="stack">
+      <section class="card">
+        <div class="card-header">
+          <div>
+            <h1 style="font-size:1.5rem">הצעת המחיר שלכם <span class="muted small" id="quote-id"></span></h1>
+            <span class="muted small" id="quote-dates"></span>
+          </div>
+          <span id="status-chip"></span>
+        </div>
+        <div id="banner"></div>
+      </section>
+
+      <div class="summary-layout">
+        <section class="card spec-summary">
+          <h2>המפרט שאליו מתייחסת ההצעה</h2>
+          <p class="muted small" id="changes-note" hidden>שורות מודגשות עודכנו על ידי הנגר ביחס למה ששלחתם.</p>
+          <div id="spec-groups"></div>
+        </section>
+
+        <section class="card">
+          <h2>פירוט המחיר</h2>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>תיאור</th><th class="num">כמות</th><th>יחידה</th><th class="num">מחיר יחידה</th><th class="num">סה״כ</th></tr></thead>
+              <tbody id="items"></tbody>
+            </table>
+          </div>
+          <div class="quote-total" id="totals"></div>
+          <hr>
+          <h3>תנאים</h3>
+          <p class="small" id="terms"></p>
+          <p class="muted small">אישור דרך קישור זה מבטא הסכמה למפרט ולמחיר ואינו חתימה משפטית. הייצור מתחיל לאחר מדידה סופית של הנגר.</p>
+          <div class="row" id="actions">
+            <button class="btn btn-primary btn-lg" type="button" id="accept-btn">אישור ההצעה</button>
+            <button class="btn btn-secondary" type="button" id="change-btn">בקשת שינוי</button>
+          </div>
+          <form id="change-form" class="stack" hidden style="margin-top:0.75rem">
+            <div class="field">
+              <label for="change-text">מה תרצו לשנות?</label>
+              <textarea id="change-text" maxlength="2000" required placeholder="למשל: אפשר להוסיף מגירה נוספת? / לשנות את הגימור לאגוז"></textarea>
+            </div>
+            <div class="row">
+              <button class="btn btn-primary" type="submit" id="change-submit">שליחת בקשת שינוי</button>
+              <button class="btn btn-ghost" type="button" id="change-cancel">ביטול</button>
+            </div>
+          </form>
+        </section>
+      </div>
+    </div>
+  </main>
+  <script type="module" src="/js/quote.js"></script>
+</body>
+</html>

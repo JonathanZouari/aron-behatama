@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>סיכום מפרט ושליחה לנגר — ארון בהתאמה</title>
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&family=Noto+Sans+Hebrew:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/customer.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="container">
+      <a class="brand" href="/"><span class="brand-mark" aria-hidden="true">א</span>ארון בהתאמה</a>
+      <nav class="nav-links"><a href="/chat.html">חזרה לשיחה</a></nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <h1>סיכום המפרט ושליחה לנגר</h1>
+    <div id="page-alert" hidden></div>
+
+    <div class="summary-layout" id="layout">
+      <section class="card spec-summary" aria-labelledby="spec-title">
+        <div class="card-header">
+          <h2 id="spec-title">המפרט <span class="muted small" id="spec-version"></span></h2>
+          <a class="btn btn-sm btn-secondary" href="/chat.html">עריכה</a>
+        </div>
+        <div id="missing-alert"></div>
+        <div id="spec-groups"><div class="skeleton" style="height:180px"></div></div>
+      </section>
+
+      <section class="card" aria-labelledby="contact-title">
+        <h2 id="contact-title">פרטי קשר</h2>
+        <form id="contact-form" class="stack" novalidate>
+          <div class="field">
+            <label for="full_name">שם מלא <span aria-hidden="true">*</span></label>
+            <input id="full_name" name="full_name" type="text" autocomplete="name" required maxlength="120">
+            <span class="error-text" data-error-for="full_name"></span>
+          </div>
+          <div class="field">
+            <label for="phone">טלפון <span aria-hidden="true">*</span></label>
+            <input id="phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" required maxlength="25" dir="ltr">
+            <span class="error-text" data-error-for="phone"></span>
+          </div>
+          <div class="field">
+            <label for="email">דוא״ל <span class="muted">(אופציונלי)</span></label>
+            <input id="email" name="email" type="email" autocomplete="email" maxlength="120" dir="ltr">
+            <span class="error-text" data-error-for="email"></span>
+          </div>
+          <div class="field" id="city-field">
+            <label for="city">עיר <span class="muted" id="city-note">(נדרש להובלה או להתקנה)</span></label>
+            <input id="city" name="city" type="text" autocomplete="address-level2" maxlength="80">
+            <span class="error-text" data-error-for="city"></span>
+          </div>
+          <p class="privacy">הפרטים משמשים את הנגרייה לצורך הכנת ההצעה ויצירת קשר בלבד. הם אינם מועברים לצד שלישי ואינם נמסרים לסוכן ה-AI.</p>
+          <label class="check">
+            <input type="checkbox" id="confirm" name="confirm" required>
+            <span>אני מאשר/ת שהמפרט נכון ומבקש/ת הצעת מחיר. ידוע לי שההצעה כפופה לבדיקת נגר.</span>
+          </label>
+          <button class="btn btn-primary btn-lg" type="submit" id="submit-btn">אישור המפרט ושליחה לנגר</button>
+        </form>
+      </section>
+    </div>
+  </main>
+  <script type="module" src="/js/summary.js"></script>
+</body>
+</html>
