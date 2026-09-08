@@ -1,0 +1,21 @@
+# secrets / env
+.env
+.env.*
+!.env.example
+# python
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+venv/
+*.sqlite3
+*.db
+# node
+node_modules/
+# os / editors
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+# supabase local
+supabase/.temp/
