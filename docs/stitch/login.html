@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+
+<html class="light" dir="rtl" lang="he"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>כניסת נגר - ארון בהתאמה</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Hebrew:wght@400;500;700&amp;family=Rubik:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Configuration -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        background: '#F7F3EC',
+                        surface: '#FFFFFF',
+                        primary: '#1F5A3C',
+                        'primary-hover': '#174630',
+                        'on-primary': '#FFFFFF',
+                        oak: '#A9743F',
+                        'light-oak': '#D9B48F',
+                        walnut: '#6B4A2B',
+                        success: '#2E7D4F',
+                        warning: '#B7791F',
+                        error: '#B3261E',
+                        info: '#2F5F8F',
+                        border: '#E6DDD0',
+                        text: {
+                            DEFAULT: '#1A1A1A',
+                            muted: '#666666'
+                        }
+                    },
+                    borderRadius: {
+                        DEFAULT: "0.25rem",
+                        lg: "0.5rem",
+                        xl: "0.75rem",
+                        full: "9999px"
+                    },
+                    fontFamily: {
+                        headline: ["Rubik", "sans-serif"],
+                        display: ["Rubik", "sans-serif"],
+                        body: ["Noto Sans Hebrew", "sans-serif"],
+                        label: ["Rubik", "sans-serif"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined.filled {
+            font-variation-settings: 'FILL' 1;
+        }
+    </style>
+</head>
+<body class="bg-background min-h-screen flex items-center justify-center p-4 font-body text-text">
+<div class="w-full max-w-md bg-surface rounded-xl shadow-2xl overflow-hidden border border-border flex flex-col">
+<!-- Decorative Header Band -->
+<div class="h-2 w-full bg-gradient-to-r from-walnut to-light-oak"></div>
+<div class="p-8 flex flex-col items-center text-center">
+<!-- Logo -->
+<img alt="לוגו ארון בהתאמה" class="w-20 h-20 rounded-md object-cover mb-4 shadow-sm" src="https://lh3.googleusercontent.com/aida/AEtjO1VxNxRBbLvZdqlnYI5iSukl96S-6dTSNtYlVW_vGCdsJFhEKlsDhowfyOgeVm2yZmPe8vnBe1RjveYMvoYGwykLnZP0p3hTOFtWwmlIoWWd4gsoL1GHUyxMi37f1wN2vnAXC0g2hw59hmyk7gQM5bayknK3lz4SKwvkrWnYSx-E_2n7wo4ICyXqmIg-LUbIjVoG9tIAsS9fcSrOek4X_dGTOmya-tKYH_2nuyFRwKOtXEY0FJ3lJT8LL9mc"/>
+<!-- Titles -->
+<h1 class="font-headline text-2xl font-bold text-walnut mb-2 tracking-tight">ארון בהתאמה · אזור הנגר</h1>
+<p class="text-sm text-text-muted mb-8 max-w-[250px]">הגישה מיועדת לנגר מורשה בלבד. אין הרשמה עצמית.</p>
+<!-- Error Banner -->
+<div class="w-full bg-red-50 border border-error text-error rounded-lg p-3 mb-6 flex items-start gap-3 text-right" role="alert">
+<span class="material-symbols-outlined shrink-0 mt-0.5">error</span>
+<span class="text-sm font-medium">פרטי ההתחברות שגויים או שאין הרשאת נגר</span>
+</div>
+<!-- Login Form -->
+<form action="#" class="w-full space-y-5 text-right" method="POST">
+<div>
+<label class="block text-sm font-medium text-text mb-1 font-label" for="email">דוא״ל</label>
+<div class="relative">
+<span class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-text-muted">
+<span class="material-symbols-outlined text-lg">mail</span>
+</span>
+<input class="block w-full rounded-lg border-border pr-10 focus:border-primary focus:ring-primary sm:text-sm h-11 transition-colors" id="email" name="email" placeholder="mail@example.com" required="" type="email" value="carpenter@aron-behatama.co.il"/>
+</div>
+</div>
+<div>
+<label class="block text-sm font-medium text-text mb-1 font-label" for="password">סיסמה</label>
+<div class="relative">
+<span class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-text-muted">
+<span class="material-symbols-outlined text-lg">lock</span>
+</span>
+<input class="block w-full rounded-lg border-error pr-10 focus:border-error focus:ring-error sm:text-sm h-11 transition-colors" id="password" name="password" placeholder="••••••••" required="" type="password"/>
+<button aria-label="הצג סיסמה" class="absolute inset-y-0 left-0 flex items-center pl-3 text-text-muted hover:text-primary transition-colors focus:outline-none" type="button">
+<span class="material-symbols-outlined text-lg">visibility</span>
+</button>
+</div>
+</div>
+<div class="pt-2">
+<button class="w-full flex justify-center items-center gap-2 py-2.5 px-4 border border-transparent rounded-lg shadow-sm text-sm font-bold font-label text-on-primary bg-primary hover:bg-primary-hover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-all h-[44px]" type="submit">
+                        התחברות
+                        <span class="material-symbols-outlined text-[20px]">login</span>
+</button>
+</div>
+</form>
+<div class="w-full border-t border-border my-8 relative">
+<span class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-surface px-4 text-xs text-text-muted font-medium">או</span>
+</div>
+<!-- Demo Section -->
+<div class="w-full bg-orange-50 border border-warning rounded-lg p-5 text-right relative overflow-hidden group">
+<div class="absolute -right-4 -top-4 w-12 h-12 bg-warning/10 rounded-full blur-xl group-hover:bg-warning/20 transition-all duration-500"></div>
+<div class="flex items-start gap-3 mb-4">
+<span class="material-symbols-outlined text-warning shrink-0 mt-0.5">construction</span>
+<div>
+<h3 class="text-sm font-bold text-warning font-label">סביבת דמו: אין חיבור ל-Supabase</h3>
+<p class="text-xs text-warning/80 mt-1">התחברות מהירה לבדיקת הממשק.</p>
+</div>
+</div>
+<button class="w-full flex justify-center items-center gap-2 py-2 px-4 border border-warning rounded-lg text-sm font-medium font-label text-warning hover:bg-warning/10 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-warning transition-all h-[44px] bg-transparent" type="button">
+                    כניסת דמו כנגר
+                    <span class="material-symbols-outlined text-[18px]">engineering</span>
+</button>
+</div>
+</div>
+<!-- Footer -->
+<div class="bg-gray-50 px-8 py-4 border-t border-border flex justify-center">
+<a class="text-sm text-walnut hover:text-oak font-medium flex items-center gap-1.5 transition-colors group" href="#">
+<span class="material-symbols-outlined text-[18px] group-hover:-translate-x-1 transition-transform">arrow_forward</span>
+                חזרה לאתר הלקוחות
+            </a>
+</div>
+</div>
+</body></html>

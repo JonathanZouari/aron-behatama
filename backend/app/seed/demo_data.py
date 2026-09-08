@@ -17,11 +17,15 @@ from .pricebook_dev import DEV_ITEMS, DEV_SETTINGS
 log = logging.getLogger(__name__)
 
 
-def seed_reference_data(container) -> None:
-    """קטלוג + מחירון — בטוח להרצה חוזרת. מתאים גם לסביבת dev מחוברת."""
+def seed_reference_data(container, include_pricebook: bool = True) -> None:
+    """קטלוג (+ מחירון דוגמה) — בטוח להרצה חוזרת.
+
+    הקטלוג הוא נתוני ייחוס (חומרים, גימורים, אזורים) ומותר גם בייצור.
+    מחירון הדוגמה נטען רק כאשר include_pricebook=True (לא בייצור).
+    """
     for item in CATALOG:
         container.pricebooks.upsert_catalog_item(**item)
-    if container.pricebooks.get_active() is None:
+    if include_pricebook and container.pricebooks.get_active() is None:
         container.pricebooks.create_version(DEV_SETTINGS, DEV_ITEMS, is_demo=True, created_by="seed")
         log.info("נוצר מחירון פיתוח לדוגמה (גרסה 1)")
 
