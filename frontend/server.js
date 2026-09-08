@@ -61,6 +61,6 @@ app.use(
 
 app.use((_req, res) => res.status(404).sendFile(path.join(__dirname, 'public', '404.html')));
 
-app.listen(PORT, '0.0.0.0', () => {
-  console.log(`frontend listening on 0.0.0.0:${PORT}, proxying /api → ${BACKEND_URL}`);
+app.listen(PORT, '::', () => {
+  console.log(`frontend listening on [::]:${PORT}, proxying /api → ${BACKEND_URL}`);
 });
