@@ -11,6 +11,7 @@ from __future__ import annotations
 import json
 import re
 import sqlite3
+import uuid
 from contextlib import contextmanager
 from datetime import datetime, timezone
 from decimal import Decimal
@@ -163,6 +164,8 @@ class Database:
         for key, value in data.items():
             if isinstance(value, datetime):
                 data[key] = iso(value)
+            elif isinstance(value, uuid.UUID):
+                data[key] = str(value)
             elif isinstance(value, Decimal):
                 data[key] = str(value)
             elif self.kind == "sqlite" and isinstance(value, str) and key in JSON_COLUMNS:
