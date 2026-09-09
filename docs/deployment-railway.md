@@ -35,7 +35,23 @@
   Site URL וכתובת Redirect לדומיין ה-Frontend של אותה סביבה. ההתחברות בסיסמה עובדת גם בלי
   זה; ההגדרה נדרשת לזרימות דוא״ל (איפוס סיסמה) אם יופעלו.
 
-## Migrations
+## Migrations — Supabase CLI (מומלץ)
+
+המאגר מקושר ל-Supabase דרך ה-CLI (`supabase/config.toml`, `supabase/migrations/`). קובץ
+ה-migration זהה ל-`backend/migrations/0001_init.sql` ורשום בהיסטוריית ה-migrations של שני הפרויקטים.
+
+```bash
+supabase link --project-ref vlcdaksrnozbddwnqehk     # dev   (יבקש את סיסמת ה-DB)
+supabase link --project-ref otqrdtmeusitavzpszeh     # production
+supabase migration list                               # מה הוחל מקומית מול מרוחק
+supabase db push --dry-run                            # מה ייושם
+supabase db push                                      # יישום בפועל
+```
+
+migration חדש: `supabase migration new <name>` → כתיבת SQL אידמפוטנטי ב-`supabase/migrations/` (ולהעתיק
+גם ל-`backend/migrations/` כדי שהדמו ב-SQLite יישאר תואם) → `db push` ל-dev → בדיקה → `db push` ל-production.
+
+## Migrations — סקריפט הפרויקט (חלופה / דמו)
 
 מריצים באופן מבוקר, לא מכל worker:
 

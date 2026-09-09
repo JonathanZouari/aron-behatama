@@ -62,7 +62,8 @@ cd backend && pytest        # 34 בדיקות: תמחור, גרסאות, הרש�
    `SUPABASE_URL`, מפתח `anon` ומפתח `service_role`.
 2. **Backend `.env`:** `DEMO_MODE=false`, `APP_ENV`, `SESSION_SECRET` אקראי ארוך, `DATABASE_URL`,
    `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`, `OPENAI_API_KEY`, `OPENAI_MODEL`.
-3. **Migrations:** `python scripts/run_migrations.py` (מבוקר, לא אוטומטי מכל worker).
+3. **Migrations:** `supabase link --project-ref <ref>` ואז `supabase db push` (ראו `docs/deployment-railway.md`),
+   או `python scripts/run_migrations.py` (מבוקר, לא אוטומטי מכל worker).
 4. **קטלוג ומחירון:** dev — `python scripts/seed_dev.py` (קטלוג + מחירון דוגמה; `--with-inquiries`
    לפניות לדוגמה). ייצור — `python scripts/seed_dev.py --catalog-only` בלבד; את המחירון האמיתי
    הנגר מגדיר במסך ״מחירון״ ומסמן ״אומת״. עד אז פרסום הצעות חסום בייצור.
