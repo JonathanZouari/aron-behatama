@@ -7,10 +7,13 @@ const pageAlert = document.getElementById('page-alert');
 let selectedId = null;
 let linkingInquiry = null;
 let timer = null;
+let listSeq = 0;
 
 async function loadList() {
   const q = document.getElementById('q').value.trim();
+  const seq = ++listSeq;
   const list = await get(`/api/admin/customers${q ? `?q=${encodeURIComponent(q)}` : ''}`);
+  if (seq !== listSeq) return;
   document.getElementById('empty').hidden = list.length > 0;
   document.getElementById('list').replaceChildren(...list.map((c) => el('div', { class: 'list-item', role: 'button', tabindex: 0, 'aria-selected': String(c.id === selectedId), onclick: () => select(c.id), onkeydown: (e) => { if (e.key === 'Enter') select(c.id); } }, [
     el('div', {}, [el('strong', { text: c.full_name }), ' ', el('span', { class: 'muted small', text: c.city || '' })]),

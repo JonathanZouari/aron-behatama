@@ -8,7 +8,7 @@ from __future__ import annotations
 
 from typing import Optional
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field, StrictBool
 
 
 class SpecLimits(BaseModel):
@@ -79,9 +79,9 @@ class SpecFields(BaseModel):
     internal_drawers: Optional[int] = Field(default=None, ge=0, le=50)
     shelves: Optional[int] = Field(default=None, ge=0, le=100)
     compartments: Optional[int] = Field(default=None, ge=1, le=50)
-    soft_close: Optional[bool] = None
-    delivery: Optional[bool] = None
-    installation: Optional[bool] = None
+    soft_close: Optional[StrictBool] = None
+    delivery: Optional[StrictBool] = None
+    installation: Optional[StrictBool] = None
     city: Optional[str] = Field(default=None, max_length=80)
     customer_notes: Optional[str] = Field(default=None, max_length=2000)
     special_requirements: Optional[str] = Field(default=None, max_length=2000)

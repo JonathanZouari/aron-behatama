@@ -11,6 +11,7 @@ from __future__ import annotations
 import json
 import re
 import sqlite3
+import threading
 import uuid
 from contextlib import contextmanager
 from datetime import datetime, timezone
@@ -53,6 +54,8 @@ class Database:
         self.kind = kind
         self._conn = conn
         self._depth = 0
+        # חיבור אחד לתהליך; נעילה מונעת שימוש מקביל מ-threads (שרת הפיתוח של Flask הוא threaded)
+        self._lock = threading.RLock()
 
     # ---- יצירה -----------------------------------------------------------
     @classmethod
@@ -102,19 +105,20 @@ class Database:
     @contextmanager
     def transaction(self) -> Iterator[None]:
         """טרנזקציה מקוננת-בטוחה: רק החיצונית מבצעת commit/rollback."""
-        if self._depth == 0:
-            self._begin()
-        self._depth += 1
-        try:
-            yield
-            self._depth -= 1
+        with self._lock:
             if self._depth == 0:
-                self._conn.execute("commit")
-        except Exception:
-            self._depth -= 1
-            if self._depth == 0:
-                self._conn.execute("rollback")
-            raise
+                self._begin()
+            self._depth += 1
+            try:
+                yield
+                self._depth -= 1
+                if self._depth == 0:
+                    self._conn.execute("commit")
+            except Exception:
+                self._depth -= 1
+                if self._depth == 0:
+                    self._conn.execute("rollback")
+                raise
 
     def _begin(self) -> None:
         # שני הדיאלקטים במצב autocommit; הטרנזקציה נפתחת ונסגרת במפורש.
@@ -122,17 +126,21 @@ class Database:
 
     # ---- שאילתות -----------------------------------------------------------
     def execute(self, sql: str, params: Sequence[Any] = ()) -> int:
-        cur = self._conn.execute(self._sql(sql), self._params(params))
-        return cur.rowcount
+        with self._lock:
+            cur = self._conn.execute(self._sql(sql), self._params(params))
+            return cur.rowcount
 
     def fetch_one(self, sql: str, params: Sequence[Any] = ()) -> Optional[dict]:
-        cur = self._conn.execute(self._sql(sql), self._params(params))
-        row = cur.fetchone()
+        with self._lock:
+            cur = self._conn.execute(self._sql(sql), self._params(params))
+            row = cur.fetchone()
         return self._row(row) if row is not None else None
 
     def fetch_all(self, sql: str, params: Sequence[Any] = ()) -> list[dict]:
-        cur = self._conn.execute(self._sql(sql), self._params(params))
-        return [self._row(r) for r in cur.fetchall()]
+        with self._lock:
+            cur = self._conn.execute(self._sql(sql), self._params(params))
+            rows = cur.fetchall()
+        return [self._row(r) for r in rows]
 
     def close(self) -> None:
         self._conn.close()

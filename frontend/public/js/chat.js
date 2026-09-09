@@ -137,7 +137,7 @@ textarea.addEventListener('keydown', (e) => {
 
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
-  const text = textarea.value.trim();
+  const text = textarea.value.trim().slice(0, 2000);
   if (!text) return;
   await flushPatch();
   addBubble('user', text, {});

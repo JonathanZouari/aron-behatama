@@ -6,6 +6,7 @@ import { mountShell } from './shell.js';
 const rows = document.getElementById('rows');
 const pageAlert = document.getElementById('page-alert');
 let timer = null;
+let requestSeq = 0; // מונע תשובה ישנה ואיטית מלדרוס סינון חדש
 
 async function loadKpis() {
   const d = await get('/api/admin/dashboard');
@@ -25,7 +26,9 @@ async function loadRows() {
   if (q) params.set('q', q);
   if (status) params.set('status', status);
   if (document.getElementById('manual').checked) params.set('manual', '1');
+  const seq = ++requestSeq;
   const list = await get(`/api/admin/inquiries?${params}`);
+  if (seq !== requestSeq) return; // הגיעה בקשה חדשה יותר בינתיים
   document.getElementById('count').textContent = `${list.length} פניות`;
   document.getElementById('empty').hidden = list.length > 0;
   rows.replaceChildren(...list.map((i) => {
