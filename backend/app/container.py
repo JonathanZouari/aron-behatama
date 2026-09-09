@@ -70,6 +70,5 @@ def _build_agent(settings: Settings, pricebooks: PriceBookRepository):
         def run(self, message, current_spec, history):
             return run_mock_agent(message, current_spec)
 
-    if not settings.demo_mode:
-        log.warning("AI מדומה פעיל מחוץ למצב דמו (AI_ENABLED=false או ללא OPENAI_API_KEY)")
+    log.warning("סוכן AI מדומה פעיל (AI_ENABLED=false או ללא OPENAI_API_KEY)")
     return MockAgent(), True

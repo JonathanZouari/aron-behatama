@@ -41,7 +41,8 @@ class Settings:
 
     @property
     def use_real_ai(self) -> bool:
-        return self.ai_enabled and not self.demo_mode and bool(self.openai_api_key)
+        """סוכן OpenAI אמיתי בכל מצב (כולל דמו/SQLite) כאשר יש מפתח ו-AI_ENABLED."""
+        return self.ai_enabled and bool(self.openai_api_key)
 
 
 def load_settings(env: dict | None = None) -> Settings:
