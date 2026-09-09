@@ -19,3 +19,8 @@ Thumbs.db
 .idea/
 # supabase local
 supabase/.temp/
+
+# sqlite side files and local demo db
+*.sqlite3-*
+backend/data/*
+!backend/data/.gitkeep
