@@ -39,7 +39,8 @@
 @media (max-width: 800px) { .adjust-row { grid-template-columns: 1fr; } }
 .login-wrap { min-height: 100vh; display: grid; place-items: center; padding: 1rem; }
 .login-card { width: min(420px, 100%); overflow: hidden; padding: 0; }
-.login-band { background: linear-gradient(135deg, var(--walnut), var(--oak)); color: #fff; padding: 1.25rem; }
+.login-band { background: linear-gradient(135deg, rgba(107,74,43,0.88), rgba(169,116,63,0.82)), url("/img/wood-band.webp") center / cover; color: #fff; padding: 1.25rem; }
+.rail { background-image: linear-gradient(rgba(107,74,43,0.94), rgba(107,74,43,0.97)), url("/img/wood-band.webp"); background-size: cover; }
 .login-body { padding: 1.25rem; }
 .master-detail { display: grid; grid-template-columns: 340px 1fr; gap: 1rem; align-items: start; }
 @media (max-width: 900px) { .master-detail { grid-template-columns: 1fr; } }

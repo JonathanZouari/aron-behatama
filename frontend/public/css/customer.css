@@ -1,6 +1,12 @@
 /* עיצוב ממשק הלקוח: אוורירי, עמודה אחת בנייד */
 .hero { display: grid; grid-template-columns: 1.3fr 1fr; gap: 2rem; align-items: center; padding: 2rem 0 2.5rem; }
 .hero .lead { font-size: 1.1rem; color: var(--text-2); max-width: 46ch; }
+.hero-visual { position: relative; }
+.hero-visual > img { width: 100%; height: auto; border-radius: var(--radius-lg); box-shadow: var(--shadow); display: block; aspect-ratio: 3 / 2; object-fit: cover; }
+.hero-visual .example-card { margin-top: -2.5rem; margin-inline: 1rem; position: relative; }
+.step-img { width: 96px; height: 96px; border-radius: 50%; object-fit: cover; margin: 0 auto 0.5rem; display: block; border: 3px solid var(--primary-soft); }
+.cta-wood { background: linear-gradient(90deg, rgba(255,255,255,0.94), rgba(255,255,255,0.86)), url("/img/wood-band.webp") center / cover; }
+.empty-illustration { width: 160px; height: 160px; object-fit: cover; border-radius: 50%; margin: 0 auto 0.75rem; display: block; opacity: 0.95; }
 .example-card blockquote { margin: 0.5rem 0; padding: 0.9rem 1rem; background: var(--surface-2); border-inline-start: 4px solid var(--oak-light); border-radius: var(--radius); font-size: 1.05rem; }
 .center { text-align: center; }
 .steps .card { text-align: center; }

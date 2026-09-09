@@ -20,6 +20,7 @@ async function init() {
     if (!q) {
       pageAlert.hidden = false;
       pageAlert.replaceChildren(el('div', { class: 'empty card' }, [
+        el('img', { class: 'empty-illustration', src: '/img/empty-state.webp', alt: '', width: 1024, height: 1024 }),
         el('h3', { text: 'עדיין אין הצעת מחיר לפנייה זו' }),
         el('p', { class: 'muted', text: 'הנגר עדיין בודק את הפנייה. נעדכן בעמוד המעקב.' }),
         el('a', { class: 'btn btn-secondary', href: `/track.html?inquiry=${inquiryId}`, text: 'למעקב הפנייה' }),

@@ -27,6 +27,7 @@ async function init() {
       document.getElementById('content').hidden = true;
       pageAlert.hidden = false;
       pageAlert.replaceChildren(el('div', { class: 'empty card' }, [
+        el('img', { class: 'empty-illustration', src: '/img/empty-state.webp', alt: '', width: 1024, height: 1024 }),
         el('h3', { text: 'לא נמצאה פנייה בדפדפן זה' }),
         el('p', { class: 'muted', text: 'אם קיבלתם קישור אישי, פתחו אותו. אחרת אפשר להתחיל תכנון חדש.' }),
         el('a', { class: 'btn btn-primary', href: '/chat.html', text: 'מתחילים לתכנן ארון' }),

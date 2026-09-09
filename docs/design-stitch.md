@@ -52,3 +52,11 @@
 * מחשב (1280px+): כל המסכים נבדקו בדפדפן מול ה-API האמיתי (דמו מקומי).
 * נייד: הפריסה מוגדרת ב-media queries (`max-width: 960px` / `860px` / `800px`), אך צילום מסך
   בנייד לא התאפשר בסשן הבדיקה (חלון הדפדפן לא הגיב לשינוי גודל). מומלץ לבדוק ב-DevTools.
+
+## תמונות (OpenAI gpt-image-1)
+
+שש תמונות נוצרו עם OpenAI Images API (`gpt-image-1`, webp) בסגנון אחיד התואם לפלטה:
+`frontend/public/img/hero-wardrobe.webp` (Hero), `step-describe/step-carpenter/step-quote.webp`
+(שלבי ״איך זה עובד״), `wood-band.webp` (טקסטורת עץ לרקע ה-CTA, פס הכניסה ופס הניווט),
+`empty-state.webp` (מצבים ריקים). הפרומפטים כללו: ללא טקסט, רקע `#F7F3EC`, גווני אלון/אגוז
+וירוק יער. התמונות דקורטיביות מסומנות `alt=""`; ל-Hero יש תיאור.
