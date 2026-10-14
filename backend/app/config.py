@@ -30,6 +30,12 @@ class Settings:
     openai_api_key: str
     openai_model: str
     ai_enabled: bool
+    voice_enabled: bool = True
+    openai_voice_model: str = "gpt-live-1"
+    openai_voice_name: str = "marin"
+    voice_sessions_per_window: int = 5
+    voice_sessions_per_ip: int = 10
+    voice_sessions_per_day: int = 200
     ai_messages_per_window: int = 20
     ai_window_seconds: int = 600
     max_message_chars: int = 2000
@@ -43,6 +49,11 @@ class Settings:
     def use_real_ai(self) -> bool:
         """סוכן OpenAI אמיתי בכל מצב (כולל דמו/SQLite) כאשר יש מפתח ו-AI_ENABLED."""
         return self.ai_enabled and bool(self.openai_api_key)
+
+    @property
+    def use_voice(self) -> bool:
+        """שיחה קולית דורשת סוכן אמיתי: הקול מאציל כל עבודה לאותו סוכן."""
+        return self.use_real_ai and self.voice_enabled
 
 
 def load_settings(env: dict | None = None) -> Settings:
@@ -72,6 +83,10 @@ def load_settings(env: dict | None = None) -> Settings:
         openai_api_key=e.get("OPENAI_API_KEY") or "",
         openai_model=e.get("OPENAI_MODEL") or "gpt-5-mini",
         ai_enabled=(e.get("AI_ENABLED") or "true").strip().lower() in ("1", "true", "yes", "on"),
+        voice_enabled=(e.get("VOICE_ENABLED") or "true").strip().lower() in ("1", "true", "yes", "on"),
+        openai_voice_model=e.get("OPENAI_VOICE_MODEL") or "gpt-live-1",
+        openai_voice_name=e.get("OPENAI_VOICE_NAME") or "marin",
+        voice_sessions_per_day=int(e.get("VOICE_SESSIONS_PER_DAY") or 200),
     )
     if not settings.demo_mode:
         missing = [n for n, v in (("DATABASE_URL", settings.database_url),

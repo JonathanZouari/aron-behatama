@@ -32,6 +32,9 @@
 .quick-replies button { border: 1px solid var(--primary); background: #fff; color: var(--primary); border-radius: 999px; padding: 0.3rem 0.8rem; font: 500 0.85rem var(--font-head); cursor: pointer; }
 .chat-input { display: flex; gap: 0.5rem; padding: 0.75rem 1rem; border-top: 1px solid var(--border); background: var(--surface); align-items: flex-end; }
 .chat-input textarea { min-height: 44px; max-height: 140px; }
+.voice-btn { white-space: nowrap; }
+.voice-btn[aria-pressed="true"] { background: var(--primary); color: #fff; border-color: var(--primary); }
+.voice-status { margin: 0 1rem 0.5rem; padding: 0.4rem 0.75rem; border-radius: var(--radius, 8px); background: var(--primary-soft); color: var(--primary); font-size: 0.85rem; }
 .chat-input .counter { font-size: 0.75rem; color: var(--text-3); white-space: nowrap; align-self: center; }
 .spec-card { position: sticky; top: 76px; max-height: calc(100vh - 100px); overflow-y: auto; }
 .spec-card .form-grid { grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); }

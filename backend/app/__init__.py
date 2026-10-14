@@ -12,6 +12,7 @@ from .config import load_settings
 from .container import Container, build_container
 from .repositories.inquiry_repo import ConflictError
 from .services.auth_admin import AuthError
+from .services.ai.voice_session import VoiceUnavailable
 from .services.inquiry_service import AIUnavailable, ValidationFailed
 from .services.quote_service import QuoteError
 from .services.security import SecurityError, apply_security_headers, ensure_csrf_cookie, verify_origin
@@ -49,9 +50,9 @@ def create_app(container: Container | None = None, run_migrations: bool = False)
     app.extensions["container"] = container
 
     from .routes import admin_customers, admin_inquiries, admin_pricebook, admin_quotes, health, public_chat, \
-        public_inquiries, public_quotes
+        public_inquiries, public_quotes, public_voice
 
-    for bp in (health.bp, public_inquiries.bp, public_chat.bp, public_quotes.bp, admin_inquiries.bp,
+    for bp in (health.bp, public_inquiries.bp, public_chat.bp, public_quotes.bp, public_voice.bp, admin_inquiries.bp,
                admin_quotes.bp, admin_pricebook.bp, admin_customers.bp):
         app.register_blueprint(bp)
 
@@ -94,6 +95,10 @@ def _register_error_handlers(app: Flask) -> None:
     @app.errorhandler(AIUnavailable)
     def _ai(exc):
         return _err(str(exc), 503, ai_unavailable=True)
+
+    @app.errorhandler(VoiceUnavailable)
+    def _voice(exc):
+        return _err(str(exc), 503, voice_unavailable=True)
 
     @app.errorhandler(404)
     def _not_found(_exc):

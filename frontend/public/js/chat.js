@@ -2,6 +2,8 @@
 import { get, patch, post, ApiError } from './api.js';
 import { el, esc, toast, setBusy, showError, FIELD_LABELS } from './ui.js';
 import { SpecCard } from './spec-card.js';
+import { createVoiceConversation, voiceSupported } from './voice.js';
+import { splitForChat } from './voice-transcript.js';
 
 const log = document.getElementById('chat-log');
 const form = document.getElementById('chat-form');
@@ -135,31 +137,43 @@ textarea.addEventListener('keydown', (e) => {
   if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); form.requestSubmit(); }
 });
 
-form.addEventListener('submit', async (e) => {
-  e.preventDefault();
-  const text = textarea.value.trim().slice(0, 2000);
-  if (!text) return;
+/** תור אחד מול הסוכן: בועת לקוח, קריאה ל-/chat ורענון המפרט. זורק שגיאה לטיפול אצל הקורא. */
+async function chatTurn(text, { showUserBubble = true } = {}) {
   await flushPatch();
-  addBubble('user', text, {});
-  textarea.value = ''; counter.textContent = '0/2000';
-  setBusy(sendBtn, true);
+  if (showUserBubble) addBubble('user', text, {});
   const typing = el('div', { class: 'bubble assistant typing', 'aria-label': 'העוזר מקליד' }, [el('span'), el('span'), el('span')]);
   log.append(typing); log.scrollTop = log.scrollHeight;
   try {
     const result = await post(`/api/inquiries/${inquiry.id}/chat`, { message: text, base_version: inquiry.spec.version });
-    typing.remove();
     addBubble('assistant', result.reply, { simulated: result.simulated });
     renderSpec({
       version: result.spec_version, spec: result.spec, missing_fields: result.missing_fields,
       manual_review_reasons: result.manual_review_reasons, customer_confirmed: false,
     });
     renderQuickReplies();
-  } catch (err) {
+    return result;
+  } finally {
     typing.remove();
+  }
+}
+
+async function reloadSpec() {
+  inquiry = await get(`/api/inquiries/${inquiry.id}`);
+  renderSpec(inquiry.spec);
+}
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const text = textarea.value.trim().slice(0, 2000);
+  if (!text) return;
+  textarea.value = ''; counter.textContent = '0/2000';
+  setBusy(sendBtn, true);
+  try {
+    await chatTurn(text);
+  } catch (err) {
     if (err instanceof ApiError && err.status === 409) {
       toast('המפרט השתנה בטופס — טענו את הגרסה החדשה, שלחו שוב', 'error');
-      inquiry = await get(`/api/inquiries/${inquiry.id}`);
-      renderSpec(inquiry.spec);
+      await reloadSpec();
       textarea.value = text;
     } else {
       const retry = el('button', { class: 'btn btn-sm btn-secondary', type: 'button', text: 'נסה שוב', onclick: () => { textarea.value = text; form.requestSubmit(); } });
@@ -174,6 +188,72 @@ form.addEventListener('submit', async (e) => {
   }
 });
 
+/* ---- שיחה קולית (GPT-Live) ---- */
+const voiceBtn = document.getElementById('voice-btn');
+const voiceStatus = document.getElementById('voice-status');
+let voice = null;
+
+const VOICE_STATES = {
+  connecting: { label: 'ביטול', status: 'מתחבר לשיחה קולית…', pressed: true },
+  live: { label: 'סיום שיחה קולית', status: 'השיחה הקולית פעילה — דברו בחופשיות. המפרט מתעדכן תוך כדי.', pressed: true },
+  closing: { label: 'מסיים…', status: 'מסיים את השיחה…', pressed: true },
+  idle: { label: 'שיחה קולית', status: '', pressed: false },
+  error: { label: 'שיחה קולית', status: '', pressed: false },
+};
+
+function onVoiceState(state, message) {
+  const view = VOICE_STATES[state] || VOICE_STATES.idle;
+  voiceBtn.textContent = view.label;
+  voiceBtn.setAttribute('aria-pressed', String(view.pressed));
+  voiceBtn.disabled = state === 'closing'; // בזמן "מתחבר" הכפתור משמש לביטול
+  voiceStatus.textContent = view.status;
+  voiceStatus.hidden = !view.status;
+  if (state === 'error' && message) toast(message, 'error');
+}
+
+/** תור קולי אחד: אותו /chat, עם ניסיון חוזר יחיד (בלי בועה כפולה) אם הטופס עדכן את המפרט בינתיים. */
+async function voiceTurn(message) {
+  try {
+    return await chatTurn(message);
+  } catch (err) {
+    if (!(err instanceof ApiError && err.status === 409)) throw err;
+    await reloadSpec();
+    try {
+      return await chatTurn(message, { showUserBubble: false });
+    } catch (retryErr) {
+      if (retryErr instanceof ApiError && retryErr.status === 409) return { reply: '', conflict: true };
+      throw retryErr;
+    }
+  }
+}
+
+/** האצלה מהקול. דיבור ארוך מפוצל לכמה תורות במקום להיחתך; התשובה האחרונה חוזרת לקול. */
+async function voiceDelegation(text) {
+  let result = { reply: '' };
+  for (const part of splitForChat(text)) {
+    result = await voiceTurn(part);
+    if (result.conflict) break;
+  }
+  return result;
+}
+
+async function initVoice() {
+  if (!voiceBtn || !voiceSupported()) return;
+  try {
+    const health = await (await fetch('/api/health', { credentials: 'same-origin' })).json();
+    if (!health.voice) return;
+  } catch {
+    return;
+  }
+  voiceBtn.hidden = false;
+  voiceBtn.addEventListener('click', () => {
+    if (!inquiry) return;
+    if (voice?.active) { voice.stop(); return; }
+    voice = createVoiceConversation({ inquiryId: inquiry.id, onDelegation: voiceDelegation, onState: onVoiceState });
+    voice.start();
+  });
+}
+
 /* ---- מעבר נייד ---- */
 for (const btn of document.querySelectorAll('.mobile-toggle button')) {
   btn.addEventListener('click', () => {
@@ -182,5 +262,8 @@ for (const btn of document.querySelectorAll('.mobile-toggle button')) {
   });
 }
 
-window.addEventListener('beforeunload', () => { if (Object.keys(pendingPatch).length) flushPatch(); });
-init();
+window.addEventListener('beforeunload', () => {
+  if (Object.keys(pendingPatch).length) flushPatch();
+  if (voice?.active) voice.stop();
+});
+init().then(initVoice);
