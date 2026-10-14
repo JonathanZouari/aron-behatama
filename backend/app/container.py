@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import logging
 from dataclasses import dataclass
+from typing import Optional
 
 from .config import Settings
 from .repositories.customer_repo import AccessTokenRepository, AdminRepository, CustomerRepository
@@ -13,6 +14,7 @@ from .repositories.quote_repo import QuoteRepository
 from .services.auth_admin import AdminAuthenticator
 from .services.inquiry_service import InquiryService
 from .services.quote_service import QuoteService
+from .services.ai.voice_session import LiveSessionClient
 from .services.security import RateLimiter
 
 log = logging.getLogger(__name__)
@@ -33,6 +35,10 @@ class Container:
     auth: AdminAuthenticator
     ai_limiter: RateLimiter
     agent_is_mock: bool
+    voice_limiter: RateLimiter
+    voice_ip_limiter: RateLimiter
+    voice_daily_limiter: RateLimiter
+    voice: Optional[LiveSessionClient] = None
 
 
 def build_container(settings: Settings, db: Database | None = None) -> Container:
@@ -55,7 +61,17 @@ def build_container(settings: Settings, db: Database | None = None) -> Container
         auth=AdminAuthenticator(settings, admins),
         ai_limiter=RateLimiter(settings.ai_messages_per_window, settings.ai_window_seconds),
         agent_is_mock=is_mock,
+        voice_limiter=RateLimiter(settings.voice_sessions_per_window, settings.ai_window_seconds),
+        voice_ip_limiter=RateLimiter(settings.voice_sessions_per_ip, settings.ai_window_seconds),
+        voice_daily_limiter=RateLimiter(settings.voice_sessions_per_day, 24 * 3600),
+        voice=_build_voice(settings, is_mock),
     )
+
+
+def _build_voice(settings: Settings, agent_is_mock: bool) -> Optional[LiveSessionClient]:
+    if not settings.use_voice or agent_is_mock:
+        return None
+    return LiveSessionClient(settings.openai_api_key, settings.openai_voice_model, settings.openai_voice_name)
 
 
 def _build_agent(settings: Settings, pricebooks: PriceBookRepository):

@@ -43,10 +43,12 @@
           <div class="skeleton" style="height:48px;width:50%;justify-self:end"></div>
         </div>
         <div class="quick-replies" id="quick-replies"></div>
+        <p class="voice-status" id="voice-status" role="status" aria-live="polite" hidden></p>
         <form class="chat-input" id="chat-form">
           <label class="visually-hidden" for="chat-text">הודעה לעוזר</label>
           <textarea id="chat-text" placeholder="כתבו כאן… למשל: ארון 240 על 260, עומק 60, 4 דלתות" maxlength="2000" rows="1" required></textarea>
           <span class="counter" id="counter">0/2000</span>
+          <button class="btn btn-secondary voice-btn" type="button" id="voice-btn" aria-pressed="false" hidden>שיחה קולית</button>
           <button class="btn btn-primary" type="submit" id="send-btn">שליחה</button>
         </form>
       </section>

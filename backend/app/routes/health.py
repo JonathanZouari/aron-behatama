@@ -23,6 +23,7 @@ def health():
         "demo_mode": c.settings.demo_mode,
         "ai": "simulated" if c.agent_is_mock else "openai",
         "database": c.db.kind,
+        "voice": c.voice is not None,
     }), status
 
 
