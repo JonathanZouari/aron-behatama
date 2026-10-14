@@ -17,6 +17,10 @@
 | `OPENAI_API_KEY` | לסוכן אמיתי | ללא מפתח, השרת משתמש בסוכן המדומה ומתעד אזהרה. |
 | `OPENAI_MODEL` | לא | ברירת מחדל `gpt-5-mini`. |
 | `AI_ENABLED` | לא | `false` = סוכן מדומה גם כשיש מפתח. |
+| `VOICE_ENABLED` | לא | ברירת מחדל `true`. שיחה קולית (GPT-Live) פעילה רק כשגם הסוכן האמיתי פעיל. `false` מסתיר את כפתור הקול. |
+| `OPENAI_VOICE_MODEL` | לא | ברירת מחדל `gpt-live-1`. |
+| `OPENAI_VOICE_NAME` | לא | קול הדיבור, ברירת מחדל `marin`. |
+| `VOICE_SESSIONS_PER_DAY` | לא | תקציב יומי לכל השירות לשיחות קוליות (ברירת מחדל 200). |
 | `FORCE_SECURE_COOKIES` | לא | `true` כדי לאלץ cookies Secure מחוץ לייצור (HTTPS). |
 
 ## Frontend (`/frontend`)

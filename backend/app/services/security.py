@@ -83,6 +83,12 @@ def apply_security_headers(response: Response, is_production: bool) -> Response:
     return response
 
 
+def client_ip(req: Request) -> str:
+    """כתובת הלקוח: ה-IP הראשון ב-X-Forwarded-For (מאחורי ה-proxy של Railway), אחרת remote_addr."""
+    forwarded = req.headers.get("X-Forwarded-For", "")
+    return forwarded.split(",")[0].strip() if forwarded else (req.remote_addr or "unknown")
+
+
 def client_key(req: Request, fallback: Optional[str] = None) -> str:
     """מפתח להגבלת קצב: קודם session של לקוח, אחרת כתובת IP."""
     forwarded = req.headers.get("X-Forwarded-For", "")
