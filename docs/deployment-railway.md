@@ -23,11 +23,14 @@
 
 | סביבה | פרויקט | Ref | ארגון |
 |---|---|---|---|
-| dev | aron-behatama-dev | `vlcdaksrnozbddwnqehk` | aron-behatama (`avomdjqmhpnfphkrolyx`) |
-| production | aron-behatama-prod | `otqrdtmeusitavzpszeh` | aron-behatama |
+| dev | aron-behatama-dev | `hbgyuicjliceetzygatn` | aron-behatama (`cbqdpfwyvjtefkmsivgh`) |
+| production | aron-behatama-prod | `llgidwmpgughwhgcgmap` | aron-behatama |
+
+> **2026-10-14:** הפרויקטים המקוריים (`vlcdaksrnozbddwnqehk`, `otqrdtmeusitavzpszeh`) נמחקו; נבנו מחדש
+> בארגון חדש. האזור נשאר `eu-central-1`; ה-pooler של הפרויקטים החדשים הוא `aws-1`.
 
 * בסיסי נתונים, Auth, מפתחות וסודות session נפרדים לכל סביבה. אין שיתוף נתונים.
-* ה-Backend מתחבר ל-Postgres דרך ה-Session pooler (`aws-0-eu-central-1.pooler.supabase.com:5432`)
+* ה-Backend מתחבר ל-Postgres דרך ה-Session pooler (`aws-1-eu-central-1.pooler.supabase.com:5432`)
   עם service role; RLS מופעל על כל הטבלאות ללא policies ציבוריות, והשרת מבצע בדיקות
   הרשאה מפורשות בכל endpoint.
 * Auth: JWT חתומים ב-ES256 ומאומתים בשרת דרך JWKS (`/auth/v1/.well-known/jwks.json`).
@@ -41,8 +44,8 @@
 ה-migration זהה ל-`backend/migrations/0001_init.sql` ורשום בהיסטוריית ה-migrations של שני הפרויקטים.
 
 ```bash
-supabase link --project-ref vlcdaksrnozbddwnqehk     # dev   (יבקש את סיסמת ה-DB)
-supabase link --project-ref otqrdtmeusitavzpszeh     # production
+supabase link --project-ref hbgyuicjliceetzygatn     # dev   (יבקש את סיסמת ה-DB)
+supabase link --project-ref llgidwmpgughwhgcgmap     # production
 supabase migration list                               # מה הוחל מקומית מול מרוחק
 supabase db push --dry-run                            # מה ייושם
 supabase db push                                      # יישום בפועל
